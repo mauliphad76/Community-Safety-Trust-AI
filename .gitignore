@@ -1,0 +1,43 @@
+# Python virtual environment
+venv/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# Coverage and local test reports
+.coverage
+.coverage.*
+htmlcov/
+
+# Local IDE and editor settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Streamlit local secrets
+.streamlit/secrets.toml
+
+# Temporary and local log files
+*.tmp
+*.log
+
+# Packaging and build artifacts
+build/
+dist/
+*.egg-info/
+
+# Explicitly tracked project assets are intentionally not ignored:
+# data/
+# dataset_metadata/
+# models/currency_cnn_best.keras
+# results/
+# README.md
+# requirements.txt
+# scripts/

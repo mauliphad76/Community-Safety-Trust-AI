@@ -1,0 +1,28 @@
+{
+  "random_seed": 42,
+  "split_percentages": {
+    "train": 70.0,
+    "validation": 15.0,
+    "test": 15.0
+  },
+  "total_images": 7445,
+  "duplicate_group_count": 200,
+  "duplicate_file_count_beyond_first": 275,
+  "splits": {
+    "train": {
+      "total": 5212,
+      "REAL": 3456,
+      "FAKE": 1756
+    },
+    "validation": {
+      "total": 1117,
+      "REAL": 741,
+      "FAKE": 376
+    },
+    "test": {
+      "total": 1116,
+      "REAL": 740,
+      "FAKE": 376
+    }
+  }
+}
