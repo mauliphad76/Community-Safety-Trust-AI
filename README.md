@@ -1,8 +1,8 @@
-# Community Safety & Trust AI Platform
+# Community Safety & Trust AI
 
 ## Project Overview
 
-Community Safety & Trust AI Platform is a Streamlit-based decision-support application for safety, fraud detection, and digital trust workflows.
+Community Safety & Trust AI is an AI-powered platform focused on safety, fraud detection, and digital trust. The current working application is a Streamlit dashboard with an implemented CNN-based Indian currency image detector. Other module cards are visible in the dashboard but are planned interfaces only.
 
 The currently implemented AI feature is an Indian currency image classifier that predicts whether an uploaded note appears **REAL** or **FAKE**. The prediction is image-based and is not a definitive bank-grade counterfeit verification.
 
@@ -19,17 +19,15 @@ Counterfeit currency can be difficult to identify from visual inspection alone. 
 - Integrate the trained model into a Streamlit dashboard.
 - Provide a clear uncertainty state and responsible-use disclaimer.
 
-## Current Features
+## Current Implemented Features
 
-- Streamlit dashboard with three module cards.
+- Streamlit dashboard with a professional interface and three AI module cards.
 - Working Fake Currency Detector using a trained TensorFlow/Keras CNN.
 - Upload support for JPG, JPEG, PNG, AVIF, and WEBP images.
 - RGB conversion, 224 x 224 resizing, and pixel normalization to `[0, 1]`.
 - REAL/FAKE prediction with confidence percentage.
 - `UNCLEAR` result when confidence is below 60%.
-- Leakage-safe CSV-based dataset splits.
-- SHA-256 duplicate grouping during split creation.
-- Saved model, training history, training plot, test results, and confusion matrix.
+- Back-to-dashboard navigation from the currency detector.
 
 ## System Workflow
 
@@ -58,7 +56,7 @@ Counterfeit currency can be difficult to identify from visual inspection alone. 
 - Planned technology: BERT with NLP.
 - Status: Not implemented yet.
 
-## Fake Currency Detector Details
+## Currency Detection Model Details
 
 The dashboard's **Open Currency Detector** flow:
 
@@ -76,7 +74,7 @@ The dashboard displays this disclaimer:
 
 > This AI result is an image-based prediction and should not be treated as a definitive bank-grade counterfeit verification.
 
-## Dataset Information
+## Dataset
 
 The dataset contains Indian currency images organized by class and denomination.
 
@@ -86,7 +84,7 @@ The dataset contains Indian currency images organized by class and denomination.
 | FAKE | 2,508 |
 | **Total** | **7,445** |
 
-The seven denominations are:
+The dataset has 7,445 images: 4,937 REAL and 2,508 FAKE. The seven denominations are:
 
 - ₹10
 - ₹20
@@ -95,6 +93,8 @@ The seven denominations are:
 - ₹200
 - ₹500
 - ₹2000
+
+The image dataset is intentionally not included in the GitHub repository because of its size and storage requirements. The `data/` directory is ignored by Git; the dataset metadata and split CSV files are maintained separately under `dataset_metadata/`.
 
 The dataset is split using the following CSV manifests:
 
@@ -147,13 +147,13 @@ The model made 990 correct predictions and 126 incorrect predictions on the test
 
 ## Project Structure
 
-The following structure reflects the current project files and generated artifacts:
+The following structure reflects the current project files. `assets/` and `modules/` currently contain no files. The local `data/` and `venv/` directories are not part of the GitHub repository.
 
 ```text
 Community_Safety_Trust_AI/
 ├── app.py
 ├── requirements.txt
-├── assets/
+├── assets/                         # Empty
 ├── data/
 │   ├── real/
 │   │   ├── 10/
@@ -179,11 +179,11 @@ Community_Safety_Trust_AI/
 │   └── split_summary.json
 ├── models/
 │   └── currency_cnn_best.keras
-├── modules/
+├── modules/                        # Empty
 ├── results/
-│   ├── currency_confusion_matrix.png
 │   ├── currency_test_results.json
 │   ├── currency_training_history.csv
+│   ├── currency_confusion_matrix.png
 │   └── currency_training_plot.png
 ├── scripts/
 │   ├── build_dataset_index.py
@@ -193,7 +193,7 @@ Community_Safety_Trust_AI/
 └── venv/
 ```
 
-The `venv/` directory is the existing local virtual environment and is not required to be committed to version control.
+The `venv/` directory is a local virtual environment and should not be committed to version control. The `data/` directory is excluded from Git because the image dataset is large.
 
 ## Installation
 
@@ -209,7 +209,7 @@ If PowerShell activation is unavailable, use the virtual-environment interpreter
 .\venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
-The required packages include Streamlit, TensorFlow, Pillow, NumPy, Pandas, scikit-learn, OpenCV, Ultralytics, Transformers, and PyTorch. The currently implemented currency pipeline directly uses Streamlit, TensorFlow/Keras, Pillow, NumPy, and Matplotlib.
+The current application and currency training/evaluation scripts use Python, Streamlit, TensorFlow/Keras, NumPy, Pillow, and Matplotlib.
 
 ## How to Run
 
@@ -225,7 +225,13 @@ The application opens in the browser at the local Streamlit URL shown in the ter
 .\venv\Scripts\python.exe -m streamlit run app.py --server.port 8502
 ```
 
-## How to Use the Currency Detector
+Alternatively, when Streamlit is available on your `PATH`, run:
+
+```powershell
+streamlit run app.py
+```
+
+## Usage
 
 1. Start the Streamlit application.
 2. Select **Open Currency Detector** on the dashboard.
@@ -237,16 +243,16 @@ The application opens in the browser at the local Streamlit URL shown in the ter
 
 The denomination folder is not used to determine an uploaded image's prediction. The CNN produces the REAL/FAKE result.
 
-## Future Scope
+## Future Scope / Planned Modules
 
-- Implement the Suspicious Activity Detector with YOLO and a rule engine.
-- Implement the Fake News / Scam Detector with BERT and NLP.
-- Add broader validation and monitoring for real-world image conditions.
-- Improve model calibration and evaluation across additional currency image sources.
+- **Planned / Not yet implemented:** Suspicious Activity Detection using YOLO, computer vision, and a rule engine.
+- **Planned / Not yet implemented:** Fake News / Scam Detection using BERT and NLP.
+- **Planned / Not yet implemented:** Additional safety and trust intelligence features.
+- Future work may also include broader validation and model calibration across additional currency image sources.
 
 These items are future work and are not currently available in the dashboard.
 
-## Limitations / Disclaimer
+## Important Disclaimer
 
 - The current detector is an image-based binary classifier, not a bank-grade verification system.
 - Predictions depend on image quality, lighting, framing, and similarity to the training data.
@@ -254,20 +260,19 @@ These items are future work and are not currently available in the dashboard.
 - The current application does not implement the planned YOLO activity or BERT scam modules.
 - Users should rely on official banking or law-enforcement verification for definitive counterfeit assessment.
 
-## Technologies Used
+## Tech Stack
 
 - Python
 - Streamlit
 - TensorFlow / Keras
-- Pillow
 - NumPy
-- Matplotlib
-- Pandas and scikit-learn are included in the project dependencies.
-- OpenCV, Ultralytics, Transformers, and PyTorch are included in the project dependencies for planned or future work; they are not used by the current currency detector flow.
-- Git/GitHub for source-control workflow
+- Pillow
+- Matplotlib (training and evaluation plots)
 
-## Author / Team
+## GitHub / Project Information
 
-**Community Safety & Trust AI Project Team**
+[Community Safety & Trust AI repository](https://github.com/mauliphad76/Community-Safety-Trust-AI)
 
-This repository is structured as a college project and GitHub portfolio project. Add the individual author or team member names here when they are finalized.
+## Author
+
+**Mauli Phad**
