@@ -23,6 +23,8 @@ Thumbs.db
 
 # Streamlit local secrets
 .streamlit/secrets.toml
+.env
+*.env
 
 # Temporary and local log files
 *.tmp
@@ -43,4 +45,5 @@ dist/
 # scripts/
 
 data/
+/yolo11n.pt
 

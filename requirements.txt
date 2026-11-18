@@ -7,4 +7,10 @@ tensorflow
 ultralytics
 transformers
 torch
-scikit-learn
+scikit-learn==1.9.1
+joblib
+matplotlib
+bcrypt
+pymongo
+dnspython
+python-dotenv

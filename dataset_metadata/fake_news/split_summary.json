@@ -1,0 +1,120 @@
+{
+  "pipeline": "Fake News Preprocessing and Stratified Splitting",
+  "random_state": 42,
+  "split_ratio": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "label_mapping": {
+    "REAL": 0,
+    "FAKE": 1
+  },
+  "label_mapping_verification": {
+    "english": "WELFake source label 0 maps to project FAKE label 1; source label 1 maps to project REAL label 0.",
+    "hindi": "hindi_fake_news.csv maps to FAKE label 1; hindi_true_news.csv maps to REAL label 0."
+  },
+  "datasets": {
+    "english": {
+      "dataset": "WELFake_Dataset",
+      "language": "english",
+      "source_files": [
+        "data\\fake_news\\raw\\english\\WELFake_Dataset.csv"
+      ],
+      "original_count": 72134,
+      "original_label_counts": {
+        "source_label_0_fake": 35028,
+        "source_label_1_real": 37106
+      },
+      "source_label_mapping": {
+        "0": 1,
+        "1": 0
+      },
+      "blank_removed": 0,
+      "duplicates_removed": 8458,
+      "cleaned_count": 63676,
+      "real_count": 28886,
+      "fake_count": 34790,
+      "splits": {
+        "train": {
+          "total": 44573,
+          "real": 20220,
+          "fake": 24353,
+          "real_pct": 45.36,
+          "fake_pct": 54.64
+        },
+        "validation": {
+          "total": 9551,
+          "real": 4333,
+          "fake": 5218,
+          "real_pct": 45.37,
+          "fake_pct": 54.63
+        },
+        "test": {
+          "total": 9552,
+          "real": 4333,
+          "fake": 5219,
+          "real_pct": 45.36,
+          "fake_pct": 54.64
+        }
+      },
+      "leakage": {
+        "train_val_overlap": 0,
+        "train_test_overlap": 0,
+        "val_test_overlap": 0,
+        "total_leakage": 0
+      }
+    },
+    "hindi": {
+      "dataset": "hindi_fake_and_true_news",
+      "language": "hindi",
+      "source_files": [
+        "data\\fake_news\\raw\\hindi\\hindi_fake_news.csv",
+        "data\\fake_news\\raw\\hindi\\hindi_true_news.csv"
+      ],
+      "original_count": 7111,
+      "original_fake": 3869,
+      "original_true": 3242,
+      "blank_removed": 0,
+      "duplicates_removed": 886,
+      "cleaned_count": 6225,
+      "real_count": 2921,
+      "fake_count": 3304,
+      "unicode_devanagari_count": 6220,
+      "unicode_devanagari_pct": 99.92,
+      "splits": {
+        "train": {
+          "total": 4357,
+          "real": 2044,
+          "fake": 2313,
+          "real_pct": 46.91,
+          "fake_pct": 53.09
+        },
+        "validation": {
+          "total": 934,
+          "real": 438,
+          "fake": 496,
+          "real_pct": 46.9,
+          "fake_pct": 53.1
+        },
+        "test": {
+          "total": 934,
+          "real": 439,
+          "fake": 495,
+          "real_pct": 47.0,
+          "fake_pct": 53.0
+        }
+      },
+      "leakage": {
+        "train_val_overlap": 0,
+        "train_test_overlap": 0,
+        "val_test_overlap": 0,
+        "total_leakage": 0
+      },
+      "source_label_mapping": {
+        "hindi_fake_news.csv": 1,
+        "hindi_true_news.csv": 0
+      }
+    }
+  }
+}

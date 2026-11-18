@@ -1,0 +1,62 @@
+{
+  "language": "hindi",
+  "label_mapping": {
+    "REAL": 0,
+    "FAKE": 1
+  },
+  "training_split": "train",
+  "validation_or_test_used_for_training": false,
+  "vectorizer_fit_on": "training data only",
+  "vectorizer": {
+    "analyzer": "char_wb",
+    "ngram_range": [
+      2,
+      5
+    ],
+    "lowercase": false,
+    "english_stop_words": false,
+    "hindi_devanagari_preserved": true,
+    "feature_count": 46730,
+    "fit_seconds": 0.665965199994389,
+    "file": "tfidf_vectorizer.joblib",
+    "size_bytes": 1688343
+  },
+  "models": {
+    "logistic_regression": {
+      "display_name": "TF-IDF + Logistic Regression",
+      "vectorizer_fit_seconds": 0.665965199994389,
+      "classifier_fit_seconds": 0.12155399995390326,
+      "total_training_seconds": 0.7875191999482922,
+      "training_rows": 4357,
+      "features": 46730,
+      "vectorizer_file": "tfidf_vectorizer.joblib",
+      "vectorizer_size_bytes": 1688343,
+      "model_file": "logistic_regression.joblib",
+      "model_size_bytes": 374699
+    },
+    "multinomial_nb": {
+      "display_name": "TF-IDF + Multinomial Naive Bayes",
+      "vectorizer_fit_seconds": 0.665965199994389,
+      "classifier_fit_seconds": 0.0051315000164322555,
+      "total_training_seconds": 0.6710967000108212,
+      "training_rows": 4357,
+      "features": 46730,
+      "vectorizer_file": "tfidf_vectorizer.joblib",
+      "vectorizer_size_bytes": 1688343,
+      "model_file": "multinomial_nb.joblib",
+      "model_size_bytes": 1496151
+    },
+    "linear_svm": {
+      "display_name": "TF-IDF + Linear SVM",
+      "vectorizer_fit_seconds": 0.665965199994389,
+      "classifier_fit_seconds": 0.06590499996673316,
+      "total_training_seconds": 0.7318701999611221,
+      "training_rows": 4357,
+      "features": 46730,
+      "vectorizer_file": "tfidf_vectorizer.joblib",
+      "vectorizer_size_bytes": 1688343,
+      "model_file": "linear_svm.joblib",
+      "model_size_bytes": 374555
+    }
+  }
+}

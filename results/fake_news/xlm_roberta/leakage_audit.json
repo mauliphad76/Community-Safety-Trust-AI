@@ -1,0 +1,640 @@
+{
+  "purpose": "Diagnostic only; no model training, tuning, or checkpoint selection.",
+  "label_mapping": {
+    "REAL": 0,
+    "FAKE": 1
+  },
+  "source_metadata_available": false,
+  "limitations": [
+    "The prepared split schema has text, label, and language only; source, publisher, publication date, and topic identifiers are unavailable.",
+    "Publisher-name mentions are heuristic text cues, not verified publication provenance; articles can quote or discuss a publisher.",
+    "Topic terms are a small manually chosen diagnostic list, not an exhaustive topic annotation or topic-disjoint split.",
+    "Existing stratified random splits may distribute related events/topics across splits; no temporal or event-grouped holdout is available."
+  ],
+  "languages": {
+    "english": {
+      "splits": {
+        "train": {
+          "rows": 44573,
+          "class_counts": {
+            "REAL": 20220,
+            "FAKE": 24353
+          },
+          "source_cues": {
+            "Reuters": {
+              "REAL": 323,
+              "FAKE": 14966
+            },
+            "Associated Press": {
+              "REAL": 249,
+              "FAKE": 459
+            },
+            "BBC": {
+              "REAL": 183,
+              "FAKE": 211
+            },
+            "CNN": {
+              "REAL": 1518,
+              "FAKE": 1303
+            },
+            "New York Times": {
+              "REAL": 960,
+              "FAKE": 5044
+            },
+            "Washington Post": {
+              "REAL": 804,
+              "FAKE": 746
+            },
+            "Fox News": {
+              "REAL": 1294,
+              "FAKE": 1041
+            },
+            "Breitbart": {
+              "REAL": 654,
+              "FAKE": 2371
+            },
+            "Infowars": {
+              "REAL": 144,
+              "FAKE": 14
+            },
+            "Sputnik": {
+              "REAL": 108,
+              "FAKE": 18
+            },
+            "The Guardian": {
+              "REAL": 189,
+              "FAKE": 113
+            }
+          },
+          "topic_cues": {
+            "election": {
+              "REAL": 4962,
+              "FAKE": 6946
+            },
+            "vote": {
+              "REAL": 4594,
+              "FAKE": 6388
+            },
+            "president": {
+              "REAL": 9484,
+              "FAKE": 15727
+            },
+            "congress": {
+              "REAL": 2554,
+              "FAKE": 4892
+            },
+            "immigration": {
+              "REAL": 944,
+              "FAKE": 2179
+            },
+            "brexit": {
+              "REAL": 216,
+              "FAKE": 629
+            },
+            "covid": {
+              "REAL": 1,
+              "FAKE": 0
+            },
+            "vaccine": {
+              "REAL": 90,
+              "FAKE": 66
+            },
+            "muslim": {
+              "REAL": 1648,
+              "FAKE": 2246
+            },
+            "israel": {
+              "REAL": 675,
+              "FAKE": 1068
+            },
+            "russia": {
+              "REAL": 2712,
+              "FAKE": 3502
+            },
+            "economy": {
+              "REAL": 938,
+              "FAKE": 2088
+            }
+          },
+          "unique_texts": 44573,
+          "within_split_duplicate_rows": 0
+        },
+        "validation": {
+          "rows": 9551,
+          "class_counts": {
+            "REAL": 4333,
+            "FAKE": 5218
+          },
+          "source_cues": {
+            "Reuters": {
+              "REAL": 71,
+              "FAKE": 3225
+            },
+            "Associated Press": {
+              "REAL": 46,
+              "FAKE": 87
+            },
+            "BBC": {
+              "REAL": 45,
+              "FAKE": 48
+            },
+            "CNN": {
+              "REAL": 339,
+              "FAKE": 265
+            },
+            "New York Times": {
+              "REAL": 222,
+              "FAKE": 1121
+            },
+            "Washington Post": {
+              "REAL": 181,
+              "FAKE": 139
+            },
+            "Fox News": {
+              "REAL": 265,
+              "FAKE": 205
+            },
+            "Breitbart": {
+              "REAL": 133,
+              "FAKE": 490
+            },
+            "Infowars": {
+              "REAL": 24,
+              "FAKE": 1
+            },
+            "Sputnik": {
+              "REAL": 21,
+              "FAKE": 3
+            },
+            "The Guardian": {
+              "REAL": 49,
+              "FAKE": 26
+            }
+          },
+          "topic_cues": {
+            "election": {
+              "REAL": 1077,
+              "FAKE": 1464
+            },
+            "vote": {
+              "REAL": 985,
+              "FAKE": 1440
+            },
+            "president": {
+              "REAL": 2062,
+              "FAKE": 3292
+            },
+            "congress": {
+              "REAL": 562,
+              "FAKE": 1045
+            },
+            "immigration": {
+              "REAL": 190,
+              "FAKE": 441
+            },
+            "brexit": {
+              "REAL": 57,
+              "FAKE": 124
+            },
+            "covid": {
+              "REAL": 1,
+              "FAKE": 0
+            },
+            "vaccine": {
+              "REAL": 17,
+              "FAKE": 19
+            },
+            "muslim": {
+              "REAL": 355,
+              "FAKE": 480
+            },
+            "israel": {
+              "REAL": 161,
+              "FAKE": 203
+            },
+            "russia": {
+              "REAL": 608,
+              "FAKE": 714
+            },
+            "economy": {
+              "REAL": 193,
+              "FAKE": 453
+            }
+          },
+          "unique_texts": 9551,
+          "within_split_duplicate_rows": 0
+        },
+        "test": {
+          "rows": 9552,
+          "class_counts": {
+            "REAL": 4333,
+            "FAKE": 5219
+          },
+          "source_cues": {
+            "Reuters": {
+              "REAL": 85,
+              "FAKE": 3232
+            },
+            "Associated Press": {
+              "REAL": 49,
+              "FAKE": 102
+            },
+            "BBC": {
+              "REAL": 38,
+              "FAKE": 57
+            },
+            "CNN": {
+              "REAL": 321,
+              "FAKE": 283
+            },
+            "New York Times": {
+              "REAL": 207,
+              "FAKE": 1069
+            },
+            "Washington Post": {
+              "REAL": 176,
+              "FAKE": 163
+            },
+            "Fox News": {
+              "REAL": 267,
+              "FAKE": 238
+            },
+            "Breitbart": {
+              "REAL": 136,
+              "FAKE": 496
+            },
+            "Infowars": {
+              "REAL": 27,
+              "FAKE": 6
+            },
+            "Sputnik": {
+              "REAL": 30,
+              "FAKE": 3
+            },
+            "The Guardian": {
+              "REAL": 51,
+              "FAKE": 26
+            }
+          },
+          "topic_cues": {
+            "election": {
+              "REAL": 1052,
+              "FAKE": 1455
+            },
+            "vote": {
+              "REAL": 968,
+              "FAKE": 1375
+            },
+            "president": {
+              "REAL": 2029,
+              "FAKE": 3396
+            },
+            "congress": {
+              "REAL": 507,
+              "FAKE": 1100
+            },
+            "immigration": {
+              "REAL": 204,
+              "FAKE": 436
+            },
+            "brexit": {
+              "REAL": 50,
+              "FAKE": 134
+            },
+            "covid": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "vaccine": {
+              "REAL": 18,
+              "FAKE": 19
+            },
+            "muslim": {
+              "REAL": 358,
+              "FAKE": 455
+            },
+            "israel": {
+              "REAL": 124,
+              "FAKE": 224
+            },
+            "russia": {
+              "REAL": 576,
+              "FAKE": 818
+            },
+            "economy": {
+              "REAL": 202,
+              "FAKE": 460
+            }
+          },
+          "unique_texts": 9552,
+          "within_split_duplicate_rows": 0
+        }
+      },
+      "exact_duplicate_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    },
+    "hindi": {
+      "splits": {
+        "train": {
+          "rows": 4357,
+          "class_counts": {
+            "REAL": 2044,
+            "FAKE": 2313
+          },
+          "source_cues": {
+            "PTI": {
+              "REAL": 1,
+              "FAKE": 0
+            },
+            "ANI": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "PIB": {
+              "REAL": 0,
+              "FAKE": 2
+            },
+            "Alt News": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "BOOM": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "India Today": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "NDTV": {
+              "REAL": 2,
+              "FAKE": 0
+            },
+            "Aaj Tak": {
+              "REAL": 19,
+              "FAKE": 0
+            },
+            "The Quint": {
+              "REAL": 0,
+              "FAKE": 0
+            }
+          },
+          "topic_cues": {
+            "चुनाव": {
+              "REAL": 35,
+              "FAKE": 45
+            },
+            "वोट": {
+              "REAL": 11,
+              "FAKE": 24
+            },
+            "मोदी": {
+              "REAL": 25,
+              "FAKE": 49
+            },
+            "कांग्रेस": {
+              "REAL": 21,
+              "FAKE": 46
+            },
+            "भाजपा": {
+              "REAL": 11,
+              "FAKE": 9
+            },
+            "सरकार": {
+              "REAL": 105,
+              "FAKE": 95
+            },
+            "कोरोना": {
+              "REAL": 99,
+              "FAKE": 140
+            },
+            "टीका": {
+              "REAL": 10,
+              "FAKE": 2
+            },
+            "मुस्लिम": {
+              "REAL": 8,
+              "FAKE": 56
+            },
+            "पाकिस्तान": {
+              "REAL": 56,
+              "FAKE": 68
+            },
+            "रूस": {
+              "REAL": 55,
+              "FAKE": 12
+            },
+            "अर्थव्यवस्था": {
+              "REAL": 2,
+              "FAKE": 0
+            }
+          },
+          "unique_texts": 4357,
+          "within_split_duplicate_rows": 0
+        },
+        "validation": {
+          "rows": 934,
+          "class_counts": {
+            "REAL": 438,
+            "FAKE": 496
+          },
+          "source_cues": {
+            "PTI": {
+              "REAL": 1,
+              "FAKE": 0
+            },
+            "ANI": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "PIB": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "Alt News": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "BOOM": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "India Today": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "NDTV": {
+              "REAL": 6,
+              "FAKE": 0
+            },
+            "Aaj Tak": {
+              "REAL": 7,
+              "FAKE": 0
+            },
+            "The Quint": {
+              "REAL": 0,
+              "FAKE": 0
+            }
+          },
+          "topic_cues": {
+            "चुनाव": {
+              "REAL": 8,
+              "FAKE": 17
+            },
+            "वोट": {
+              "REAL": 2,
+              "FAKE": 8
+            },
+            "मोदी": {
+              "REAL": 5,
+              "FAKE": 15
+            },
+            "कांग्रेस": {
+              "REAL": 11,
+              "FAKE": 10
+            },
+            "भाजपा": {
+              "REAL": 1,
+              "FAKE": 0
+            },
+            "सरकार": {
+              "REAL": 23,
+              "FAKE": 14
+            },
+            "कोरोना": {
+              "REAL": 26,
+              "FAKE": 25
+            },
+            "टीका": {
+              "REAL": 4,
+              "FAKE": 1
+            },
+            "मुस्लिम": {
+              "REAL": 2,
+              "FAKE": 10
+            },
+            "पाकिस्तान": {
+              "REAL": 15,
+              "FAKE": 14
+            },
+            "रूस": {
+              "REAL": 13,
+              "FAKE": 4
+            },
+            "अर्थव्यवस्था": {
+              "REAL": 2,
+              "FAKE": 1
+            }
+          },
+          "unique_texts": 934,
+          "within_split_duplicate_rows": 0
+        },
+        "test": {
+          "rows": 934,
+          "class_counts": {
+            "REAL": 439,
+            "FAKE": 495
+          },
+          "source_cues": {
+            "PTI": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "ANI": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "PIB": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "Alt News": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "BOOM": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "India Today": {
+              "REAL": 0,
+              "FAKE": 0
+            },
+            "NDTV": {
+              "REAL": 2,
+              "FAKE": 0
+            },
+            "Aaj Tak": {
+              "REAL": 4,
+              "FAKE": 0
+            },
+            "The Quint": {
+              "REAL": 0,
+              "FAKE": 0
+            }
+          },
+          "topic_cues": {
+            "चुनाव": {
+              "REAL": 9,
+              "FAKE": 9
+            },
+            "वोट": {
+              "REAL": 3,
+              "FAKE": 7
+            },
+            "मोदी": {
+              "REAL": 7,
+              "FAKE": 17
+            },
+            "कांग्रेस": {
+              "REAL": 2,
+              "FAKE": 11
+            },
+            "भाजपा": {
+              "REAL": 2,
+              "FAKE": 1
+            },
+            "सरकार": {
+              "REAL": 20,
+              "FAKE": 17
+            },
+            "कोरोना": {
+              "REAL": 25,
+              "FAKE": 20
+            },
+            "टीका": {
+              "REAL": 2,
+              "FAKE": 1
+            },
+            "मुस्लिम": {
+              "REAL": 0,
+              "FAKE": 16
+            },
+            "पाकिस्तान": {
+              "REAL": 11,
+              "FAKE": 18
+            },
+            "रूस": {
+              "REAL": 10,
+              "FAKE": 6
+            },
+            "अर्थव्यवस्था": {
+              "REAL": 0,
+              "FAKE": 0
+            }
+          },
+          "unique_texts": 934,
+          "within_split_duplicate_rows": 0
+        }
+      },
+      "exact_duplicate_overlap": {
+        "train_validation": 0,
+        "train_test": 0,
+        "validation_test": 0
+      }
+    }
+  }
+}

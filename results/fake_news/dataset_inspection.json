@@ -1,0 +1,102 @@
+{
+  "label_encoding": {
+    "0": "REAL",
+    "1": "FAKE"
+  },
+  "label_mapping_evidence": "WELFake source labels map as 0=FAKE and 1=REAL; project labels are REAL=0 and FAKE=1. Hindi labels are assigned from the explicit hindi_fake_news (1) and hindi_true_news (0) filenames.",
+  "files": [
+    {
+      "file": "C:\\Users\\pc\\Desktop\\Community_Safety_Trust_AI\\data\\fake_news\\raw\\english\\WELFake_Dataset.csv",
+      "size_bytes": 245086152,
+      "columns": [
+        "",
+        "title",
+        "text",
+        "label"
+      ],
+      "detected_text_columns": [
+        "title",
+        "text"
+      ],
+      "detected_label_column": "label",
+      "rows": 72134,
+      "missing_values_by_column": {
+        "title": 558,
+        "text": 783
+      },
+      "empty_text_rows": 0,
+      "duplicate_text_rows": 8462,
+      "duplicate_text_groups": 63672,
+      "extra_field_rows": 0,
+      "labels": {
+        "0": 37106,
+        "1": 35028
+      },
+      "languages": {
+        "english": 72134
+      }
+    },
+    {
+      "file": "C:\\Users\\pc\\Desktop\\Community_Safety_Trust_AI\\data\\fake_news\\raw\\hindi\\hindi_fake_news.csv",
+      "size_bytes": 788430,
+      "columns": [
+        "Articles",
+        ""
+      ],
+      "detected_text_columns": [
+        "Articles"
+      ],
+      "detected_label_column": null,
+      "rows": 3869,
+      "missing_values_by_column": {
+        "": 3868
+      },
+      "empty_text_rows": 0,
+      "duplicate_text_rows": 566,
+      "duplicate_text_groups": 3303,
+      "extra_field_rows": 0,
+      "labels": {
+        "1": 3869
+      },
+      "languages": {
+        "hindi": 3869
+      }
+    },
+    {
+      "file": "C:\\Users\\pc\\Desktop\\Community_Safety_Trust_AI\\data\\fake_news\\raw\\hindi\\hindi_true_news.csv",
+      "size_bytes": 682294,
+      "columns": [
+        "Articles"
+      ],
+      "detected_text_columns": [
+        "Articles"
+      ],
+      "detected_label_column": null,
+      "rows": 3242,
+      "missing_values_by_column": {},
+      "empty_text_rows": 0,
+      "duplicate_text_rows": 321,
+      "duplicate_text_groups": 2921,
+      "extra_field_rows": 0,
+      "labels": {
+        "0": 3242
+      },
+      "languages": {
+        "hindi": 3242
+      }
+    }
+  ],
+  "total_source_rows": 79245,
+  "empty_text_rows": 0,
+  "duplicate_text_rows_across_files_including_within_files": 9349,
+  "unique_nonempty_texts": 69896,
+  "label_counts": {
+    "0": 40348,
+    "1": 38897
+  },
+  "language_counts": {
+    "english": 72134,
+    "hindi": 7111
+  },
+  "conflicting_duplicate_label_groups": 0
+}

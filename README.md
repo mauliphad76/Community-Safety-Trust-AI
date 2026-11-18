@@ -2,9 +2,9 @@
 
 ## Project Overview
 
-Community Safety & Trust AI is an AI-powered platform focused on safety, fraud detection, and digital trust. The current working application is a Streamlit dashboard with an implemented CNN-based Indian currency image detector. Other module cards are visible in the dashboard but are planned interfaces only.
+Community Safety & Trust AI is a local Streamlit dashboard for currency screening, YOLO object detection with crowd-count review signals, and English/Hindi fake-news text classification.
 
-The currently implemented AI feature is an Indian currency image classifier that predicts whether an uploaded note appears **REAL** or **FAKE**. The prediction is image-based and is not a definitive bank-grade counterfeit verification.
+All three modules reuse locally saved model artifacts. Their predictions are decision-support signals, not definitive verification or independent fact-checking.
 
 ## Problem Statement
 
@@ -27,7 +27,11 @@ Counterfeit currency can be difficult to identify from visual inspection alone. 
 - RGB conversion, 224 x 224 resizing, and pixel normalization to `[0, 1]`.
 - REAL/FAKE prediction with confidence percentage.
 - `UNCLEAR` result when confidence is below 60%.
-- Back-to-dashboard navigation from the currency detector.
+- YOLO object detection for uploaded images, with annotated output, object confidence scores, bounding boxes, and per-class counts.
+- English and Hindi Fake News Detection using saved TF-IDF vectorizers and Linear SVMs.
+- Direct dashboard navigation between all three modules.
+- Optional YOLO camera support remains in the code; the current detector page exposes image uploads.
+- An optional experimental alert for the generic COCO `knife` label; it is not a weapon or threat determination.
 
 ## System Workflow
 
@@ -36,7 +40,8 @@ Counterfeit currency can be difficult to identify from visual inspection alone. 
 3. `scripts/create_stratified_splits.py` creates reproducible stratified CSV manifests.
 4. `scripts/train_currency_cnn.py` trains the CNN using the training and validation manifests.
 5. `scripts/evaluate_currency_cnn.py` evaluates the saved model on the unseen test manifest.
-6. `app.py` loads the saved model and provides interactive image prediction through Streamlit.
+6. `app.py` loads the saved currency and YOLO models and provides interactive image analysis through Streamlit.
+7. The fake-news module loads the saved language-specific SVM and vectorizer for English or Hindi text input.
 
 ## AI Modules
 
@@ -46,15 +51,30 @@ Counterfeit currency can be difficult to identify from visual inspection alone. 
 - Task: Binary REAL versus FAKE image classification.
 - Status: Implemented and integrated into the Streamlit dashboard.
 
-### Planned / Coming Soon: Suspicious Activity Detector
+### Implemented: Object Detection
 
-- Planned technology: YOLO with a rule engine.
-- Status: Not implemented yet.
+- Technology: pretrained Ultralytics YOLO with a simple rule engine.
+- Task: detect all supported model classes in an uploaded image, show bounding boxes and per-class counts, and indicate when the configurable person-count threshold is met. The demo exposes image uploads only; existing camera support is retained for later.
+- Inference defaults: 18% confidence, 0.70 IoU/NMS, 640-pixel inference size, and `max_det=300`. Select 960 or 1280 for high-resolution images when seeking small objects; larger inputs cost more time and may not help low-resolution images.
+- The crowding threshold defaults to 5 people and triggers when the detected count is greater than or equal to that value. It is an adjustable review threshold, not a universal definition of crowding.
+- The optional display class filter is applied after inference; it does not limit which classes the model checks.
+- The COCO model supports 80 object classes. It does not include mirrors; detecting unsupported categories may require custom-trained weights.
+- The loaded COCO weights include a generic `knife` class (class ID 43). Its optional confidence-gated visual/audio alert is experimental and does not confirm a weapon, threat, or crime. No gun class or separate weapon model is configured.
+- Camera alert sounds are cooldown-limited and repeated reruns of the same input do not replay an uploaded-image alert.
+- The module does not infer suspicious behaviour, intent, danger, or criminal activity.
+- The local `yolo11n.pt` weights are used when present; otherwise Ultralytics may attempt to obtain them on first use.
 
-### Planned / Coming Soon: Fake News / Scam Detector
+### Fake News / Scam Detector Baseline
 
-- Planned technology: BERT with NLP.
-- Status: Not implemented yet.
+- Prediction uses the trained language-specific TF-IDF + Linear SVM models. The UI provides English and Hindi selection.
+- A TF-IDF + Logistic Regression, Multinomial Naive Bayes, and Linear SVM baseline is available for English and Hindi. Training, validation-based selection, held-out test evaluation, command-line prediction, and Streamlit integration are implemented.
+- English and Hindi use the shared labels `REAL = 0`, `FAKE = 1`. Clean datasets and 70/15/15 train/validation/test splits are written under `data/fake_news/`; preprocessing metadata is written under `dataset_metadata/fake_news/`.
+- WELFake source labels are mapped as `0 = FAKE` to project label `1` and `1 = REAL` to project label `0`. Hindi labels continue to come from the source filenames: fake `1`, true `0`.
+- Rebuild only English outputs and preserve Hindi data with `python scripts/fake_news/preprocess_and_split.py --language english`.
+- Run `python scripts/fake_news/train_baseline.py` followed by `python scripts/fake_news/evaluate_baseline.py`; training reads only train splits, model selection uses validation FAKE-class F1, and only selected models are evaluated on test splits.
+- Predict with `python scripts/fake_news/predict_baseline.py --language hindi --model linear_svm --text-file news.txt` for UTF-8 Hindi text.
+- The reusable interface is `predict_news(language="hindi", text=news_text)` from `modules.fake_news_detection`. It returns the numeric label, `REAL`/`FAKE` prediction, and a signed Linear SVM decision score. That score is not a calibrated probability; positive values favor FAKE and negative values favor REAL. Empty or unsupported inputs raise explicit errors. The classification is not independent fact-checking.
+- Transformer training is deferred and is not part of the current local workflow. An older experiment notebook remains archived under `notebooks/fake_news/`; the app uses the saved Linear SVM models instead.
 
 ## Currency Detection Model Details
 
@@ -147,49 +167,38 @@ The model made 990 correct predictions and 126 incorrect predictions on the test
 
 ## Project Structure
 
-The following structure reflects the current project files. `assets/` and `modules/` currently contain no files. The local `data/` and `venv/` directories are not part of the GitHub repository.
+Key application and model files are organized as follows. The local `data/` and `venv/` directories are excluded from Git.
 
 ```text
 Community_Safety_Trust_AI/
 ├── app.py
 ├── requirements.txt
-├── assets/                         # Empty
+├── yolo11n.pt
 ├── data/
-│   ├── real/
-│   │   ├── 10/
-│   │   ├── 20/
-│   │   ├── 50/
-│   │   ├── 100/
-│   │   ├── 200/
-│   │   ├── 500/
-│   │   └── 2000/
-│   └── fake/
-│       ├── 10/
-│       ├── 20/
-│       ├── 50/
-│       ├── 100/
-│       ├── 200/
-│       ├── 500/
-│       └── 2000/
+│   ├── real/                       # Local currency training/test images
+│   ├── fake/
+│   └── fake_news/                  # Local raw, processed, and split CSVs
 ├── dataset_metadata/
-│   ├── all_images.csv
 │   ├── train.csv
 │   ├── validation.csv
 │   ├── test.csv
-│   └── split_summary.json
+│   └── fake_news/
 ├── models/
-│   └── currency_cnn_best.keras
-├── modules/                        # Empty
+│   ├── currency_cnn_best.keras
+│   └── fake_news/baseline/
+│       ├── english/{linear_svm.joblib, tfidf_vectorizer.joblib}
+│       └── hindi/{linear_svm.joblib, tfidf_vectorizer.joblib}
+├── modules/
+│   ├── fake_news_detection.py
+│   └── suspicious_activity.py
 ├── results/
-│   ├── currency_test_results.json
-│   ├── currency_training_history.csv
-│   ├── currency_confusion_matrix.png
-│   └── currency_training_plot.png
+│   ├── currency_*.*
+│   └── fake_news/
 ├── scripts/
-│   ├── build_dataset_index.py
-│   ├── create_stratified_splits.py
+│   ├── fake_news/
 │   ├── evaluate_currency_cnn.py
 │   └── train_currency_cnn.py
+├── tests/
 └── venv/
 ```
 
@@ -234,37 +243,34 @@ streamlit run app.py
 ## Usage
 
 1. Start the Streamlit application.
-2. Select **Open Currency Detector** on the dashboard.
-3. Upload a JPG, JPEG, PNG, AVIF, or WEBP currency image.
-4. Review the displayed image.
-5. Review the REAL/FAKE prediction and confidence percentage.
-6. Treat low-confidence results as unclear and scan the note again.
-7. Use **Back to Dashboard** to return to the main view.
+2. Select a module from the dashboard or the top navigation.
+3. For currency, upload a JPG, JPEG, PNG, AVIF, or WEBP note image; review the REAL/FAKE result and confidence/unclear state.
+4. For suspicious activity, upload an image and select **Analyze Image**; review object detections and crowd-count review indicators.
+5. For fake news, select English or Hindi, enter article text, and select **Analyze Article**.
+6. Interpret the fake-news SVM score only as a signed decision margin, not as a probability or confidence percentage.
+7. Verify all AI results with appropriate human or authoritative review.
 
 The denomination folder is not used to determine an uploaded image's prediction. The CNN produces the REAL/FAKE result.
 
-## Future Scope / Planned Modules
+## Future Scope
 
-- **Planned / Not yet implemented:** Suspicious Activity Detection using YOLO, computer vision, and a rule engine.
-- **Planned / Not yet implemented:** Fake News / Scam Detection using BERT and NLP.
-- **Planned / Not yet implemented:** Additional safety and trust intelligence features.
+- Authentication and additional safety/trust features remain future work.
 - Future work may also include broader validation and model calibration across additional currency image sources.
-
-These items are future work and are not currently available in the dashboard.
 
 ## Important Disclaimer
 
-- The current detector is an image-based binary classifier, not a bank-grade verification system.
-- Predictions depend on image quality, lighting, framing, and similarity to the training data.
-- A confidence score is not a guarantee of correctness.
-- The current application does not implement the planned YOLO activity or BERT scam modules.
-- Users should rely on official banking or law-enforcement verification for definitive counterfeit assessment.
+- The currency detector is an image-based binary classifier, not a bank-grade verification system. Predictions depend on image quality, lighting, framing, and similarity to training data; confidence is not a guarantee.
+- YOLO detections and crowd counts are approximate visual signals. They do not determine intent, danger, or criminal activity.
+- Fake-news labels are dataset-trained text classifications, not independent fact-checking. The Linear SVM decision score is not a calibrated probability.
+- Use appropriate human review and authoritative sources for consequential decisions.
 
 ## Tech Stack
 
 - Python
 - Streamlit
 - TensorFlow / Keras
+- scikit-learn and joblib
+- Ultralytics YOLO and OpenCV
 - NumPy
 - Pillow
 - Matplotlib (training and evaluation plots)
