@@ -264,25 +264,357 @@ def render_auth_page():
     Renders the unified Register & Login interface for Community Safety & Trust AI.
     Uses MongoDB Cloud Atlas exclusively for credential management.
     """
+    # Professional AI Cybersecurity Light Theme & Styling
     st.markdown(
         """
-        <div style="text-align: center; margin-top: 1rem; margin-bottom: 2rem;">
-            <div style="font-size: 3.2rem; margin-bottom: 0.5rem;">🛡️</div>
-            <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 0.04em; color: #0f172a;">
-                COMMUNITY SAFETY & TRUST AI
-            </h1>
-            <p style="color: #64748b; font-size: 0.95rem; margin-top: 0.4rem;">
-                Secure Access Portal • Authentication Powered by MongoDB Cloud
-            </p>
-        </div>
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        /* Auth Page Global Background */
+        .stApp {
+            background-color: #F5F8FF !important;
+            background-image: 
+                radial-gradient(circle at 10% 12%, rgba(37, 99, 235, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 88%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(15, 118, 110, 0.04) 0%, transparent 50%),
+                linear-gradient(rgba(37, 99, 235, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, 0.02) 1px, transparent 1px) !important;
+            background-size: auto, auto, auto, 36px 36px, 36px 36px !important;
+        }
+
+        /* Container Card for Form */
+        [data-testid="stForm"] {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 20px !important;
+            padding: 1.6rem 1.8rem !important;
+            box-shadow: 0 10px 30px -5px rgba(20, 33, 61, 0.05), 0 2px 6px -1px rgba(20, 33, 61, 0.02) !important;
+        }
+
+        /* Typography */
+        .auth-hero-title {
+            color: #14213D;
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 0.6rem 0 0.7rem;
+        }
+        .auth-hero-title span {
+            background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .auth-hero-desc {
+            color: #64748B;
+            font-size: 0.92rem;
+            line-height: 1.6;
+            margin-bottom: 1.4rem;
+        }
+
+        /* High-Tech Badge */
+        .auth-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: rgba(37, 99, 235, 0.08);
+            border: 1px solid rgba(37, 99, 235, 0.22);
+            border-radius: 999px;
+            padding: 0.32rem 0.8rem;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: #2563EB;
+            text-transform: uppercase;
+        }
+
+        /* Feature Micro-Cards */
+        .auth-feature-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 14px;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.65rem;
+            box-shadow: 0 2px 6px rgba(20, 33, 61, 0.025);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .auth-feature-pill:hover {
+            transform: translateY(-2px);
+            border-color: #06B6D4;
+            box-shadow: 0 6px 18px rgba(6, 182, 212, 0.12);
+        }
+        .auth-feature-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.09) 0%, rgba(6, 182, 212, 0.12) 100%);
+            display: grid;
+            place-items: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(37, 99, 235, 0.12);
+        }
+        .auth-feature-title {
+            font-size: 0.84rem;
+            font-weight: 750;
+            color: #172033;
+            line-height: 1.25;
+        }
+        .auth-feature-desc {
+            font-size: 0.72rem;
+            color: #64748B;
+            margin-top: 0.1rem;
+        }
+
+        /* Tabs Styling */
+        [data-baseweb="tab-list"] {
+            background-color: #F1F5F9 !important;
+            padding: 0.3rem !important;
+            border-radius: 14px !important;
+            gap: 0.35rem !important;
+            border: 1px solid #E2E8F0 !important;
+            margin-bottom: 0.9rem !important;
+        }
+        [data-baseweb="tab"] {
+            border-radius: 10px !important;
+            padding: 0.55rem 1.1rem !important;
+            font-weight: 700 !important;
+            font-size: 0.85rem !important;
+            color: #64748B !important;
+            border: none !important;
+            background: transparent !important;
+            transition: all 0.2s ease !important;
+        }
+        [data-baseweb="tab"][aria-selected="true"] {
+            background-color: #FFFFFF !important;
+            color: #14213D !important;
+            box-shadow: 0 2px 8px rgba(20, 33, 61, 0.08) !important;
+        }
+        [data-baseweb="tab-highlight"],
+        [data-baseweb="tab-border"] {
+            display: none !important;
+        }
+
+        /* Inputs Styling */
+        div[data-testid="stTextInput"] input {
+            background-color: #F1F5F9 !important;
+            border: 1.5px solid #E2E8F0 !important;
+            border-radius: 12px !important;
+            color: #172033 !important;
+            font-size: 0.88rem !important;
+            font-weight: 550 !important;
+            padding: 0.65rem 0.95rem !important;
+            transition: all 0.2s ease !important;
+        }
+        div[data-testid="stTextInput"] input:focus {
+            background-color: #FFFFFF !important;
+            border-color: #2563EB !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+        }
+        div[data-testid="stTextInput"] label {
+            color: #14213D !important;
+            font-weight: 700 !important;
+            font-size: 0.82rem !important;
+            letter-spacing: -0.01em !important;
+        }
+
+        /* Gradient Buttons for Primary Actions */
+        div[data-testid="stFormSubmitButton"] > button[kind="primary"],
+        .stButton > button[kind="primary"] {
+            background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%) !important;
+            border: none !important;
+            border-radius: 12px !important;
+            color: #FFFFFF !important;
+            font-size: 0.92rem !important;
+            font-weight: 750 !important;
+            letter-spacing: 0.02em !important;
+            padding: 0.75rem 1.4rem !important;
+            min-height: 2.85rem !important;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28) !important;
+            transition: all 0.22s ease !important;
+        }
+        div[data-testid="stFormSubmitButton"] > button[kind="primary"]:hover,
+        .stButton > button[kind="primary"]:hover {
+            background: linear-gradient(135deg, #1D4ED8 0%, #0891B2 100%) !important;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.38) !important;
+            transform: translateY(-1.5px) !important;
+        }
+        div[data-testid="stFormSubmitButton"] > button[kind="primary"]:active,
+        .stButton > button[kind="primary"]:active {
+            transform: translateY(0px) !important;
+        }
+
+        /* Secondary Buttons */
+        .stButton > button:not([kind="primary"]) {
+            background: #FFFFFF !important;
+            border: 1px solid #CBD5E1 !important;
+            border-radius: 12px !important;
+            color: #14213D !important;
+            font-weight: 650 !important;
+        }
+        .stButton > button:not([kind="primary"]):hover {
+            background: #F1F5F9 !important;
+            border-color: #94A3B8 !important;
+        }
+
+        /* Expander Styling */
+        div[data-testid="stExpander"] {
+            background: #FFFFFF !important;
+            border: 1px solid #E2E8F0 !important;
+            border-radius: 14px !important;
+            margin-bottom: 1.1rem !important;
+            box-shadow: 0 2px 6px rgba(20, 33, 61, 0.03) !important;
+        }
+        div[data-testid="stExpander"] summary {
+            font-weight: 700 !important;
+            color: #14213D !important;
+            font-size: 0.84rem !important;
+        }
+        </style>
         """,
         unsafe_allow_html=True,
     )
 
     mongo_uri = get_mongo_uri()
-    col_left, col_center, col_right = st.columns([1, 2.2, 1])
+    col_hero, col_card = st.columns([1, 1.2], gap="large")
 
-    with col_center:
+    # Left Column: AI Cybersecurity Visual Showcase
+    with col_hero:
+        # SVG AI Shield & Neural Circuit Illustration
+        st.markdown(
+            """
+            <svg viewBox="0 0 460 280" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; max-width:440px; height:auto; display:block; margin: 0.5rem auto 1.2rem;">
+              <defs>
+                <linearGradient id="shieldGrad" x1="50" y1="20" x2="350" y2="280" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#2563EB" />
+                  <stop offset="60%" stop-color="#06B6D4" />
+                  <stop offset="100%" stop-color="#0F766E" />
+                </linearGradient>
+                <linearGradient id="coreGrad" x1="190" y1="110" x2="270" y2="190" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#3B82F6" />
+                  <stop offset="100%" stop-color="#06B6D4" />
+                </linearGradient>
+                <linearGradient id="traceGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#2563EB" stop-opacity="0.2" />
+                  <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.8" />
+                </linearGradient>
+                <radialGradient id="cyberGlow" cx="230" cy="140" r="130" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#06B6D4" stop-opacity="0.18" />
+                  <stop offset="60%" stop-color="#2563EB" stop-opacity="0.08" />
+                  <stop offset="100%" stop-color="#F5F8FF" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+
+              <circle cx="230" cy="140" r="125" fill="url(#cyberGlow)" />
+              <circle cx="230" cy="140" r="115" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.8" />
+              <circle cx="230" cy="140" r="80" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="8 8" opacity="0.6" />
+              <circle cx="230" cy="140" r="48" stroke="#06B6D4" stroke-width="1.2" stroke-opacity="0.4" />
+
+              <path d="M70 50 H 130 L 165 85 H 200" stroke="url(#traceGrad)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+              <circle cx="70" cy="50" r="3.5" fill="#2563EB" />
+              <circle cx="130" cy="50" r="2.5" fill="#06B6D4" />
+              <circle cx="200" cy="85" r="3.5" fill="#06B6D4" />
+
+              <path d="M50 220 H 120 L 160 185 H 195" stroke="url(#traceGrad)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+              <circle cx="50" cy="220" r="3.5" fill="#2563EB" />
+              <circle cx="160" cy="185" r="2.5" fill="#06B6D4" />
+              <circle cx="195" cy="185" r="3" fill="#0F766E" />
+
+              <path d="M390 60 H 330 L 295 95 H 260" stroke="url(#traceGrad)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+              <circle cx="390" cy="60" r="3.5" fill="#06B6D4" />
+              <circle cx="330" cy="60" r="2.5" fill="#2563EB" />
+              <circle cx="260" cy="95" r="3.5" fill="#06B6D4" />
+
+              <path d="M410 210 H 340 L 300 175 H 265" stroke="url(#traceGrad)" stroke-width="1.5" stroke-linecap="round" fill="none" />
+              <circle cx="410" cy="210" r="3.5" fill="#0F766E" />
+              <circle cx="300" cy="175" r="2.5" fill="#06B6D4" />
+              <circle cx="265" cy="175" r="3" fill="#2563EB" />
+
+              <polygon points="120,125 130,130 130,142 120,147 110,142 110,130" fill="#F1F5F9" stroke="#2563EB" stroke-width="1.5" />
+              <polygon points="340,125 350,130 350,142 340,147 330,142 330,130" fill="#F1F5F9" stroke="#06B6D4" stroke-width="1.5" />
+
+              <path d="M 230 35 L 300 68 C 300 145 265 200 230 225 C 195 200 160 145 160 68 Z" 
+                    fill="#FFFFFF" 
+                    stroke="url(#shieldGrad)" 
+                    stroke-width="3" 
+                    stroke-linejoin="round" />
+
+              <path d="M 230 42 L 290 72 C 290 138 260 186 230 210 Z" fill="rgba(37, 99, 235, 0.05)" />
+              <path d="M 230 42 L 170 72 C 170 138 200 186 230 210 Z" fill="rgba(6, 182, 212, 0.08)" />
+
+              <circle cx="230" cy="132" r="32" fill="url(#coreGrad)" />
+              <circle cx="230" cy="132" r="36" stroke="#06B6D4" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.75" />
+
+              <rect x="220" y="126" width="20" height="16" rx="3" fill="#FFFFFF" />
+              <path d="M 223 126 V 121 C 223 117 237 117 237 121 V 126" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" fill="none" />
+              <circle cx="230" cy="133" r="2" fill="#14213D" />
+              <path d="M 230 135 V 138" stroke="#14213D" stroke-width="1.5" stroke-linecap="round" />
+
+              <path d="M 215 92 L 230 80 L 245 92" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+              <circle cx="230" cy="64" r="3" fill="#06B6D4" />
+
+              <text x="75" y="38" font-family="'DM Mono', monospace" font-size="9" fill="#64748B" letter-spacing="1">SEC_LEVEL // 01</text>
+              <text x="315" y="48" font-family="'DM Mono', monospace" font-size="9" fill="#06B6D4" letter-spacing="1">AI_SHIELD // ON</text>
+              <text x="60" y="240" font-family="'DM Mono', monospace" font-size="9" fill="#2563EB" letter-spacing="1">256-BIT BCRYPT</text>
+              <text x="315" y="230" font-family="'DM Mono', monospace" font-size="9" fill="#0F766E" letter-spacing="1">MONGODB ATLAS</text>
+            </svg>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        st.markdown('<div class="auth-badge">🛡️ Enterprise AI Defense Platform</div>', unsafe_allow_html=True)
+        st.markdown('<div class="auth-hero-title">Protecting Trust With <span>Responsible AI</span></div>', unsafe_allow_html=True)
+        st.markdown('<div class="auth-hero-desc">A unified intelligence workspace for visual screening, spatial awareness, and digital trust. Delivering enterprise-grade security and fraud mitigation.</div>', unsafe_allow_html=True)
+
+        st.markdown(
+            """
+            <div class="auth-feature-pill">
+                <div class="auth-feature-icon">💵</div>
+                <div>
+                    <div class="auth-feature-title">Neural Banknote Screening</div>
+                    <div class="auth-feature-desc">Deep Convolutional Neural Network counterfeit detection</div>
+                </div>
+            </div>
+            <div class="auth-feature-pill">
+                <div class="auth-feature-icon">👁️</div>
+                <div>
+                    <div class="auth-feature-title">Spatial Vision & Crowd AI</div>
+                    <div class="auth-feature-desc">Real-time YOLOv11 object identification and density review</div>
+                </div>
+            </div>
+            <div class="auth-feature-pill">
+                <div class="auth-feature-icon">📰</div>
+                <div>
+                    <div class="auth-feature-title">Cognitive Trust NLP Engine</div>
+                    <div class="auth-feature-desc">Bilingual Hindi/English fake news and claim classification</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # Right Column: Existing Authentication Form Card
+    with col_card:
+        # Header Badge & Title
+        st.markdown(
+            """
+            <div style="margin-bottom: 1.1rem; padding-bottom: 0.8rem; border-bottom: 1px solid #E2E8F0;">
+                <div style="display:flex; align-items:center; gap:0.75rem;">
+                    <div style="font-size:1.6rem; background:linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(6,182,212,0.12) 100%); border:1px solid #E2E8F0; border-radius:12px; width:44px; height:44px; display:grid; place-items:center;">🛡️</div>
+                    <div>
+                        <div style="font-size:1.15rem; font-weight:800; color:#14213D; letter-spacing:0.02em; line-height:1.2;">COMMUNITY SAFETY & TRUST AI</div>
+                        <div style="font-size:0.68rem; color:#2563EB; font-family:'DM Mono', monospace; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;">Secure Intelligence Portal</div>
+                    </div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
         # Check and display MongoDB Cloud status
         if not mongo_uri:
             st.warning(
@@ -356,7 +688,7 @@ def render_auth_page():
 
         with tab_login:
             st.markdown(
-                '<div style="margin: 0.8rem 0 1.2rem; color: #475569; font-size: 0.88rem;">'
+                '<div style="margin: 0.6rem 0 1rem; color: #64748B; font-size: 0.88rem;">'
                 'Enter your credentials to access the safety intelligence platform.'
                 '</div>',
                 unsafe_allow_html=True,
@@ -393,7 +725,7 @@ def render_auth_page():
 
         with tab_register:
             st.markdown(
-                '<div style="margin: 0.8rem 0 1.2rem; color: #475569; font-size: 0.88rem;">'
+                '<div style="margin: 0.6rem 0 1rem; color: #64748B; font-size: 0.88rem;">'
                 'Register a new account. Your credentials are securely hashed and stored in MongoDB Cloud.'
                 '</div>',
                 unsafe_allow_html=True,
