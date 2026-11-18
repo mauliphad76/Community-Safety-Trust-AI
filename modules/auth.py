@@ -282,13 +282,20 @@ def render_auth_page():
             background-size: auto, auto, auto, 36px 36px, 36px 36px !important;
         }
 
-        /* Container Card for Form */
-        [data-testid="stForm"] {
+        /* Auth Card Container */
+        .st-key-auth_card {
             background: #FFFFFF !important;
             border: 1px solid #E2E8F0 !important;
-            border-radius: 20px !important;
-            padding: 1.6rem 1.8rem !important;
-            box-shadow: 0 10px 30px -5px rgba(20, 33, 61, 0.05), 0 2px 6px -1px rgba(20, 33, 61, 0.02) !important;
+            border-radius: 24px !important;
+            padding: 2.2rem 2.4rem !important;
+            box-shadow: 0 20px 45px -10px rgba(20, 33, 61, 0.08), 0 1px 3px rgba(20, 33, 61, 0.04) !important;
+        }
+
+        .st-key-auth_card div[data-testid="stForm"] {
+            background: transparent !important;
+            border: none !important;
+            padding: 0.2rem 0 0.8rem 0 !important;
+            box-shadow: none !important;
         }
 
         /* Typography */
@@ -371,7 +378,7 @@ def render_auth_page():
         }
 
         /* Tabs Styling */
-        [data-baseweb="tab-list"] {
+        .st-key-auth_card [data-baseweb="tab-list"] {
             background-color: #F1F5F9 !important;
             padding: 0.3rem !important;
             border-radius: 14px !important;
@@ -379,7 +386,7 @@ def render_auth_page():
             border: 1px solid #E2E8F0 !important;
             margin-bottom: 0.9rem !important;
         }
-        [data-baseweb="tab"] {
+        .st-key-auth_card [data-baseweb="tab"] {
             border-radius: 10px !important;
             padding: 0.55rem 1.1rem !important;
             font-weight: 700 !important;
@@ -389,18 +396,18 @@ def render_auth_page():
             background: transparent !important;
             transition: all 0.2s ease !important;
         }
-        [data-baseweb="tab"][aria-selected="true"] {
+        .st-key-auth_card [data-baseweb="tab"][aria-selected="true"] {
             background-color: #FFFFFF !important;
             color: #14213D !important;
             box-shadow: 0 2px 8px rgba(20, 33, 61, 0.08) !important;
         }
-        [data-baseweb="tab-highlight"],
-        [data-baseweb="tab-border"] {
+        .st-key-auth_card [data-baseweb="tab-highlight"],
+        .st-key-auth_card [data-baseweb="tab-border"] {
             display: none !important;
         }
 
         /* Inputs Styling */
-        div[data-testid="stTextInput"] input {
+        .st-key-auth_card div[data-testid="stTextInput"] input {
             background-color: #F1F5F9 !important;
             border: 1.5px solid #E2E8F0 !important;
             border-radius: 12px !important;
@@ -410,66 +417,80 @@ def render_auth_page():
             padding: 0.65rem 0.95rem !important;
             transition: all 0.2s ease !important;
         }
-        div[data-testid="stTextInput"] input:focus {
+        .st-key-auth_card div[data-testid="stTextInput"] input:focus {
             background-color: #FFFFFF !important;
             border-color: #2563EB !important;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.16) !important;
         }
-        div[data-testid="stTextInput"] label {
+        .st-key-auth_card div[data-testid="stTextInput"] label {
             color: #14213D !important;
             font-weight: 700 !important;
             font-size: 0.82rem !important;
             letter-spacing: -0.01em !important;
         }
 
+        /* Password visibility eye icon */
+        .st-key-auth_card div[data-testid="stTextInput"] button {
+            border: none !important;
+            background: transparent !important;
+            color: #64748B !important;
+            box-shadow: none !important;
+        }
+        .st-key-auth_card div[data-testid="stTextInput"] button:hover {
+            color: #2563EB !important;
+            background: transparent !important;
+        }
+
         /* Gradient Buttons for Primary Actions */
-        div[data-testid="stFormSubmitButton"] > button[kind="primary"],
-        .stButton > button[kind="primary"] {
+        .st-key-auth_card div[data-testid="stFormSubmitButton"] > button[kind="primary"],
+        .st-key-auth_card .stButton > button[kind="primary"],
+        div[data-testid="stFormSubmitButton"] > button[kind="primary"] {
             background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%) !important;
             border: none !important;
             border-radius: 12px !important;
             color: #FFFFFF !important;
-            font-size: 0.92rem !important;
+            font-size: 0.94rem !important;
             font-weight: 750 !important;
             letter-spacing: 0.02em !important;
             padding: 0.75rem 1.4rem !important;
-            min-height: 2.85rem !important;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.28) !important;
+            min-height: 2.9rem !important;
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.28) !important;
             transition: all 0.22s ease !important;
         }
-        div[data-testid="stFormSubmitButton"] > button[kind="primary"]:hover,
-        .stButton > button[kind="primary"]:hover {
+        .st-key-auth_card div[data-testid="stFormSubmitButton"] > button[kind="primary"]:hover,
+        .st-key-auth_card .stButton > button[kind="primary"]:hover,
+        div[data-testid="stFormSubmitButton"] > button[kind="primary"]:hover {
             background: linear-gradient(135deg, #1D4ED8 0%, #0891B2 100%) !important;
-            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.38) !important;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.42) !important;
             transform: translateY(-1.5px) !important;
         }
-        div[data-testid="stFormSubmitButton"] > button[kind="primary"]:active,
-        .stButton > button[kind="primary"]:active {
+        .st-key-auth_card div[data-testid="stFormSubmitButton"] > button[kind="primary"]:active,
+        .st-key-auth_card .stButton > button[kind="primary"]:active {
             transform: translateY(0px) !important;
         }
 
         /* Secondary Buttons */
-        .stButton > button:not([kind="primary"]) {
+        .st-key-auth_card .stButton > button:not([kind="primary"]) {
             background: #FFFFFF !important;
             border: 1px solid #CBD5E1 !important;
             border-radius: 12px !important;
             color: #14213D !important;
             font-weight: 650 !important;
         }
-        .stButton > button:not([kind="primary"]):hover {
+        .st-key-auth_card .stButton > button:not([kind="primary"]):hover {
             background: #F1F5F9 !important;
             border-color: #94A3B8 !important;
         }
 
         /* Expander Styling */
-        div[data-testid="stExpander"] {
-            background: #FFFFFF !important;
+        .st-key-auth_card div[data-testid="stExpander"] {
+            background: #F8FAFC !important;
             border: 1px solid #E2E8F0 !important;
             border-radius: 14px !important;
             margin-bottom: 1.1rem !important;
-            box-shadow: 0 2px 6px rgba(20, 33, 61, 0.03) !important;
+            box-shadow: 0 1px 3px rgba(20, 33, 61, 0.02) !important;
         }
-        div[data-testid="stExpander"] summary {
+        .st-key-auth_card div[data-testid="stExpander"] summary {
             font-weight: 700 !important;
             color: #14213D !important;
             font-size: 0.84rem !important;
@@ -599,190 +620,191 @@ def render_auth_page():
 
     # Right Column: Existing Authentication Form Card
     with col_card:
-        # Header Badge & Title
-        st.markdown(
-            """
-            <div style="margin-bottom: 1.1rem; padding-bottom: 0.8rem; border-bottom: 1px solid #E2E8F0;">
-                <div style="display:flex; align-items:center; gap:0.75rem;">
-                    <div style="font-size:1.6rem; background:linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(6,182,212,0.12) 100%); border:1px solid #E2E8F0; border-radius:12px; width:44px; height:44px; display:grid; place-items:center;">🛡️</div>
-                    <div>
-                        <div style="font-size:1.15rem; font-weight:800; color:#14213D; letter-spacing:0.02em; line-height:1.2;">COMMUNITY SAFETY & TRUST AI</div>
-                        <div style="font-size:0.68rem; color:#2563EB; font-family:'DM Mono', monospace; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;">Secure Intelligence Portal</div>
+        with st.container(key="auth_card"):
+            # Header Badge & Title
+            st.markdown(
+                """
+                <div style="margin-bottom: 1.1rem; padding-bottom: 0.8rem; border-bottom: 1px solid #E2E8F0;">
+                    <div style="display:flex; align-items:center; gap:0.75rem;">
+                        <div style="font-size:1.6rem; background:linear-gradient(135deg, rgba(37,99,235,0.08) 0%, rgba(6,182,212,0.12) 100%); border:1px solid #E2E8F0; border-radius:12px; width:44px; height:44px; display:grid; place-items:center;">🛡️</div>
+                        <div>
+                            <div style="font-size:1.15rem; font-weight:800; color:#14213D; letter-spacing:0.02em; line-height:1.2;">COMMUNITY SAFETY & TRUST AI</div>
+                            <div style="font-size:0.68rem; color:#2563EB; font-family:'DM Mono', monospace; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;">Secure Intelligence Portal</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # Check and display MongoDB Cloud status
-        if not mongo_uri:
-            st.warning(
-                "⚠️ **MongoDB Cloud is not configured.**\n\n"
-                "Please configure your MongoDB Atlas connection string below to enable registration and login."
+                """,
+                unsafe_allow_html=True,
             )
-            with st.expander("⚙️ Connect MongoDB Atlas Cloud", expanded=True):
+
+            # Check and display MongoDB Cloud status
+            if not mongo_uri:
+                st.warning(
+                    "⚠️ **MongoDB Cloud is not configured.**\n\n"
+                    "Please configure your MongoDB Atlas connection string below to enable registration and login."
+                )
+                with st.expander("⚙️ Connect MongoDB Atlas Cloud", expanded=True):
+                    st.markdown(
+                        """
+                        Enter your MongoDB Atlas connection string:
+                        ```text
+                        mongodb+srv://<username>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority
+                        ```
+                        *Credentials are securely stored locally in your `.env` file and excluded from Git.*
+                        """
+                    )
+                    with st.form("mongo_config_form"):
+                        input_uri = st.text_input(
+                            "MongoDB Cloud URI",
+                            type="password",
+                            placeholder="mongodb+srv://user:pass@cluster.mongodb.net/...",
+                        )
+                        input_db = st.text_input(
+                            "Database Name",
+                            value=DEFAULT_DB_NAME,
+                        )
+                        submitted = st.form_submit_button("Save & Connect →", type="primary", use_container_width=True)
+                        if submitted:
+                            ok, msg = save_mongo_uri_to_env(input_uri, input_db)
+                            if ok:
+                                test_ok, test_msg = test_mongo_connection()
+                                if test_ok:
+                                    st.success("Connected to MongoDB Cloud successfully!")
+                                    st.rerun()
+                                else:
+                                    st.warning(f"Saved to .env, but connection test failed: {test_msg}")
+                            else:
+                                st.error(msg)
+            else:
+                # Quick status indicator
+                with st.expander("☁️ MongoDB Cloud Connection Status", expanded=False):
+                    st.caption(f"Database: `{get_db_name()}` | Collection: `{USER_COLLECTION}`")
+                    if st.button("Test MongoDB Atlas Connection", key="test_mongo_conn"):
+                        with st.spinner("Testing connection to MongoDB Cloud..."):
+                            ok, msg = test_mongo_connection()
+                        if ok:
+                            st.success(f"✅ {msg}")
+                        else:
+                            st.error(f"❌ {msg}")
+                    # Allow updating URI if desired
+                    st.divider()
+                    st.caption("Need to update your connection string?")
+                    with st.form("update_mongo_uri_form"):
+                        new_uri = st.text_input("New MongoDB URI", type="password")
+                        new_db = st.text_input("Database Name", value=get_db_name())
+                        if st.form_submit_button("Update Configuration"):
+                            ok, msg = save_mongo_uri_to_env(new_uri, new_db)
+                            if ok:
+                                st.success("Updated! Testing connection...")
+                                test_ok, test_msg = test_mongo_connection()
+                                if test_ok:
+                                    st.success(test_msg)
+                                    st.rerun()
+                                else:
+                                    st.warning(test_msg)
+                            else:
+                                st.error(msg)
+
+            # Tabbed Authentication Interface
+            tab_login, tab_register = st.tabs(["🔐 Sign In", "📝 Create Account"])
+
+            with tab_login:
                 st.markdown(
-                    """
-                    Enter your MongoDB Atlas connection string:
-                    ```text
-                    mongodb+srv://<username>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority
-                    ```
-                    *Credentials are securely stored locally in your `.env` file and excluded from Git.*
-                    """
+                    '<div style="margin: 0.6rem 0 1rem; color: #64748B; font-size: 0.88rem;">'
+                    'Enter your credentials to access the safety intelligence platform.'
+                    '</div>',
+                    unsafe_allow_html=True,
                 )
-                with st.form("mongo_config_form"):
-                    input_uri = st.text_input(
-                        "MongoDB Cloud URI",
-                        type="password",
-                        placeholder="mongodb+srv://user:pass@cluster.mongodb.net/...",
+                with st.form("auth_login_form", clear_on_submit=False):
+                    login_identifier = st.text_input(
+                        "Username or Email",
+                        placeholder="Enter your username or email address",
+                        key="login_user_input",
                     )
-                    input_db = st.text_input(
-                        "Database Name",
-                        value=DEFAULT_DB_NAME,
-                    )
-                    submitted = st.form_submit_button("Save & Connect →", type="primary", use_container_width=True)
-                    if submitted:
-                        ok, msg = save_mongo_uri_to_env(input_uri, input_db)
-                        if ok:
-                            test_ok, test_msg = test_mongo_connection()
-                            if test_ok:
-                                st.success("Connected to MongoDB Cloud successfully!")
-                                st.rerun()
-                            else:
-                                st.warning(f"Saved to .env, but connection test failed: {test_msg}")
-                        else:
-                            st.error(msg)
-        else:
-            # Quick status indicator
-            with st.expander("☁️ MongoDB Cloud Connection Status", expanded=False):
-                st.caption(f"Database: `{get_db_name()}` | Collection: `{USER_COLLECTION}`")
-                if st.button("Test MongoDB Atlas Connection", key="test_mongo_conn"):
-                    with st.spinner("Testing connection to MongoDB Cloud..."):
-                        ok, msg = test_mongo_connection()
-                    if ok:
-                        st.success(f"✅ {msg}")
-                    else:
-                        st.error(f"❌ {msg}")
-                # Allow updating URI if desired
-                st.divider()
-                st.caption("Need to update your connection string?")
-                with st.form("update_mongo_uri_form"):
-                    new_uri = st.text_input("New MongoDB URI", type="password")
-                    new_db = st.text_input("Database Name", value=get_db_name())
-                    if st.form_submit_button("Update Configuration"):
-                        ok, msg = save_mongo_uri_to_env(new_uri, new_db)
-                        if ok:
-                            st.success("Updated! Testing connection...")
-                            test_ok, test_msg = test_mongo_connection()
-                            if test_ok:
-                                st.success(test_msg)
-                                st.rerun()
-                            else:
-                                st.warning(test_msg)
-                        else:
-                            st.error(msg)
-
-        # Tabbed Authentication Interface
-        tab_login, tab_register = st.tabs(["🔐 Sign In", "📝 Create Account"])
-
-        with tab_login:
-            st.markdown(
-                '<div style="margin: 0.6rem 0 1rem; color: #64748B; font-size: 0.88rem;">'
-                'Enter your credentials to access the safety intelligence platform.'
-                '</div>',
-                unsafe_allow_html=True,
-            )
-            with st.form("auth_login_form", clear_on_submit=False):
-                login_identifier = st.text_input(
-                    "Username or Email",
-                    placeholder="Enter your username or email address",
-                    key="login_user_input",
-                )
-                login_password = st.text_input(
-                    "Password",
-                    type="password",
-                    placeholder="Enter your password",
-                    key="login_pass_input",
-                )
-                login_btn = st.form_submit_button(
-                    "Sign In →",
-                    type="primary",
-                    use_container_width=True,
-                    disabled=not bool(mongo_uri),
-                )
-                if login_btn:
-                    with st.spinner("Authenticating with MongoDB Cloud..."):
-                        success, message, user_data = authenticate_user(login_identifier, login_password)
-                    if success:
-                        st.session_state["authenticated"] = True
-                        st.session_state["user"] = user_data
-                        st.session_state["module"] = None
-                        st.success(f"Welcome back, {user_data.get('full_name')}!")
-                        st.rerun()
-                    else:
-                        st.error(message)
-
-        with tab_register:
-            st.markdown(
-                '<div style="margin: 0.6rem 0 1rem; color: #64748B; font-size: 0.88rem;">'
-                'Register a new account. Your credentials are securely hashed and stored in MongoDB Cloud.'
-                '</div>',
-                unsafe_allow_html=True,
-            )
-            with st.form("auth_register_form", clear_on_submit=False):
-                reg_full_name = st.text_input(
-                    "Full Name",
-                    placeholder="e.g. Alex Morgan",
-                    key="reg_name_input",
-                )
-                reg_username = st.text_input(
-                    "Username",
-                    placeholder="3-30 letters, numbers, or underscores",
-                    key="reg_username_input",
-                )
-                reg_email = st.text_input(
-                    "Email Address",
-                    placeholder="e.g. alex@example.com",
-                    key="reg_email_input",
-                )
-                col_p1, col_p2 = st.columns(2)
-                with col_p1:
-                    reg_password = st.text_input(
+                    login_password = st.text_input(
                         "Password",
                         type="password",
-                        placeholder="At least 6 characters",
-                        key="reg_password_input",
+                        placeholder="Enter your password",
+                        key="login_pass_input",
                     )
-                with col_p2:
-                    reg_confirm = st.text_input(
-                        "Confirm Password",
-                        type="password",
-                        placeholder="Repeat your password",
-                        key="reg_confirm_input",
+                    login_btn = st.form_submit_button(
+                        "Sign In →",
+                        type="primary",
+                        use_container_width=True,
+                        disabled=not bool(mongo_uri),
                     )
+                    if login_btn:
+                        with st.spinner("Authenticating with MongoDB Cloud..."):
+                            success, message, user_data = authenticate_user(login_identifier, login_password)
+                        if success:
+                            st.session_state["authenticated"] = True
+                            st.session_state["user"] = user_data
+                            st.session_state["module"] = None
+                            st.success(f"Welcome back, {user_data.get('full_name')}!")
+                            st.rerun()
+                        else:
+                            st.error(message)
 
-                register_btn = st.form_submit_button(
-                    "Create Account →",
-                    type="primary",
-                    use_container_width=True,
-                    disabled=not bool(mongo_uri),
+            with tab_register:
+                st.markdown(
+                    '<div style="margin: 0.6rem 0 1rem; color: #64748B; font-size: 0.88rem;">'
+                    'Register a new account. Your credentials are securely hashed and stored in MongoDB Cloud.'
+                    '</div>',
+                    unsafe_allow_html=True,
                 )
-                if register_btn:
-                    with st.spinner("Registering user in MongoDB Cloud..."):
-                        success, message = register_user(
-                            reg_full_name,
-                            reg_username,
-                            reg_email,
-                            reg_password,
-                            reg_confirm,
+                with st.form("auth_register_form", clear_on_submit=False):
+                    reg_full_name = st.text_input(
+                        "Full Name",
+                        placeholder="e.g. Alex Morgan",
+                        key="reg_name_input",
+                    )
+                    reg_username = st.text_input(
+                        "Username",
+                        placeholder="3-30 letters, numbers, or underscores",
+                        key="reg_username_input",
+                    )
+                    reg_email = st.text_input(
+                        "Email Address",
+                        placeholder="e.g. alex@example.com",
+                        key="reg_email_input",
+                    )
+                    col_p1, col_p2 = st.columns(2)
+                    with col_p1:
+                        reg_password = st.text_input(
+                            "Password",
+                            type="password",
+                            placeholder="At least 6 characters",
+                            key="reg_password_input",
                         )
-                    if success:
-                        st.success(f"✅ {message}")
-                        st.info("Switch to the **Sign In** tab to log in with your new credentials.")
-                    else:
-                        st.error(f"❌ {message}")
+                    with col_p2:
+                        reg_confirm = st.text_input(
+                            "Confirm Password",
+                            type="password",
+                            placeholder="Repeat your password",
+                            key="reg_confirm_input",
+                        )
 
-        st.caption(
-            "🔒 Passwords are cryptographically salted and hashed using bcrypt before transmission to MongoDB Cloud."
-        )
+                    register_btn = st.form_submit_button(
+                        "Create Account →",
+                        type="primary",
+                        use_container_width=True,
+                        disabled=not bool(mongo_uri),
+                    )
+                    if register_btn:
+                        with st.spinner("Registering user in MongoDB Cloud..."):
+                            success, message = register_user(
+                                reg_full_name,
+                                reg_username,
+                                reg_email,
+                                reg_password,
+                                reg_confirm,
+                            )
+                        if success:
+                            st.success(f"✅ {message}")
+                            st.info("Switch to the **Sign In** tab to log in with your new credentials.")
+                        else:
+                            st.error(f"❌ {message}")
+
+            st.caption(
+                "🔒 Passwords are cryptographically salted and hashed using bcrypt before transmission to MongoDB Cloud."
+            )

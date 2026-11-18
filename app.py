@@ -63,6 +63,23 @@ st.markdown(
         background-size: 32px 32px;
     }
 
+    /* Auth Page Theme when .st-key-auth_card is present */
+    .stApp:has(.st-key-auth_card) {
+        background-color: #F5F8FF !important;
+        background-image: 
+            radial-gradient(circle at 12% 14%, rgba(37, 99, 235, 0.09) 0%, transparent 45%),
+            radial-gradient(circle at 88% 86%, rgba(6, 182, 212, 0.09) 0%, transparent 45%),
+            radial-gradient(circle at 50% 50%, rgba(15, 118, 110, 0.04) 0%, transparent 50%),
+            linear-gradient(rgba(37, 99, 235, 0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(37, 99, 235, 0.025) 1px, transparent 1px) !important;
+        background-size: auto, auto, auto, 36px 36px, 36px 36px !important;
+    }
+
+    .stApp:has(.st-key-auth_card) [data-testid="stSidebar"],
+    .stApp:has(.st-key-auth_card) [data-testid="collapsedControl"] {
+        display: none !important;
+    }
+
     [data-testid="stHeader"] {
         background: transparent;
     }
@@ -445,19 +462,19 @@ st.markdown(
         transition: all 0.18s ease !important;
     }
 
-    /* Primary buttons: Deep Slate / Carbon */
-    .stButton > button[kind="primary"],
-    .stFormSubmitButton > button[kind="primary"],
-    button[data-testid="baseButton-primary"] {
+    /* Primary buttons: Deep Slate / Carbon (Dashboard) */
+    .stButton > button[kind="primary"]:not(.st-key-auth_card *),
+    .stFormSubmitButton > button[kind="primary"]:not(.st-key-auth_card *),
+    button[data-testid="baseButton-primary"]:not(.st-key-auth_card *) {
         background: #0f172a !important;
         border: 1px solid #0f172a !important;
         color: #ffffff !important;
         box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12) !important;
     }
 
-    .stButton > button[kind="primary"]:hover,
-    .stFormSubmitButton > button[kind="primary"]:hover,
-    button[data-testid="baseButton-primary"]:hover {
+    .stButton > button[kind="primary"]:not(.st-key-auth_card *):hover,
+    .stFormSubmitButton > button[kind="primary"]:not(.st-key-auth_card *):hover,
+    button[data-testid="baseButton-primary"]:not(.st-key-auth_card *):hover {
         background: #1e293b !important;
         border-color: #1e293b !important;
         color: #ffffff !important;
