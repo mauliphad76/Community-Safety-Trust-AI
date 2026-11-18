@@ -267,11 +267,11 @@ def render_auth_page():
     st.markdown(
         """
         <div style="text-align: center; margin-top: 1rem; margin-bottom: 2rem;">
-            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🛡️</div>
-            <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 0.05em;">
+            <div style="font-size: 3.2rem; margin-bottom: 0.5rem;">🛡️</div>
+            <h1 style="margin: 0; font-size: 2.2rem; font-weight: 800; letter-spacing: 0.04em; color: #0f172a;">
                 COMMUNITY SAFETY & TRUST AI
             </h1>
-            <p style="color: #9692aa; font-size: 0.95rem; margin-top: 0.4rem;">
+            <p style="color: #64748b; font-size: 0.95rem; margin-top: 0.4rem;">
                 Secure Access Portal • Authentication Powered by MongoDB Cloud
             </p>
         </div>
@@ -356,7 +356,7 @@ def render_auth_page():
 
         with tab_login:
             st.markdown(
-                '<div style="margin: 0.8rem 0 1.2rem; color: #a8b2b8; font-size: 0.88rem;">'
+                '<div style="margin: 0.8rem 0 1.2rem; color: #475569; font-size: 0.88rem;">'
                 'Enter your credentials to access the safety intelligence platform.'
                 '</div>',
                 unsafe_allow_html=True,
@@ -393,7 +393,7 @@ def render_auth_page():
 
         with tab_register:
             st.markdown(
-                '<div style="margin: 0.8rem 0 1.2rem; color: #a8b2b8; font-size: 0.88rem;">'
+                '<div style="margin: 0.8rem 0 1.2rem; color: #475569; font-size: 0.88rem;">'
                 'Register a new account. Your credentials are securely hashed and stored in MongoDB Cloud.'
                 '</div>',
                 unsafe_allow_html=True,

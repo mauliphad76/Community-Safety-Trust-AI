@@ -32,131 +32,526 @@ MODULE_NAV_ITEMS = (
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
-    :root { --ink:#f4f1ff; --muted:#9692aa; --subtle:#68647b; --line:rgba(255,255,255,.09); --purple:#a875ff; --bright:#c49aff; --green:#66e3a5; --amber:#f5bd69; --cyan:#54d9ff; --mint:#66e3a5; --red:#ff7e96; }
-    html, body, [class*="css"] { font-family:'Manrope',sans-serif; }
-    .stApp { color:var(--ink); background-color:#08090d; background-image:linear-gradient(rgba(84,217,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(84,217,255,.025) 1px,transparent 1px),radial-gradient(circle at 92% 3%,rgba(127,77,216,.18),transparent 27%),radial-gradient(circle at 7% 28%,rgba(42,104,165,.11),transparent 25%); background-size:42px 42px,42px 42px,auto,auto; }
-    [data-testid="stHeader"] { background:transparent; } [data-testid="stMainBlockContainer"] { max-width:1380px; padding-top:2rem; } .block-container { padding-left:3.5rem; padding-right:3.5rem; }
-    h1,h2,h3,h4,p { letter-spacing:0; } h1,h2,h3,h4 { color:var(--ink); } h1,h2,h3 { font-weight:800; } p,li { color:var(--muted); } hr { border-color:var(--line); }
-    .topbar { align-items:center; display:flex; justify-content:space-between; margin-bottom:2.4rem; } .brand { align-items:center; display:flex; gap:.8rem; } .brand-mark { align-items:center; background:linear-gradient(145deg,#352052,#1a1625); border:1px solid rgba(196,154,255,.35); border-radius:13px; box-shadow:0 0 28px rgba(168,117,255,.16); display:grid; font-size:1.35rem; height:42px; justify-content:center; width:42px; } .brand-name { color:var(--ink); font-size:.87rem; font-weight:800; letter-spacing:.11em; line-height:1.25; } .brand-caption,.online,.eyebrow,.section-label span,.module-tech,.status-online,.status-planned,.metric-label,.card-kicker { font-family:'DM Mono',monospace; } .brand-caption { color:var(--subtle); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; } .online { color:var(--green); font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; } .online:before { background:var(--green); border-radius:50%; box-shadow:0 0 12px var(--green); content:''; display:inline-block; height:7px; margin-right:.45rem; width:7px; }
-    .eyebrow { color:var(--bright); font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; } .hero-title { color:var(--ink); font-size:clamp(2.1rem,4vw,4.3rem); font-weight:800; line-height:1.02; margin:.55rem 0 .85rem; } .hero-copy,.feature-copy { color:var(--muted); line-height:1.7; max-width:640px; } .hero-copy { font-size:1rem; } .hero-copy strong { color:var(--ink); } .hero-orbit { color:var(--bright); font-size:5rem; opacity:.75; text-align:right; text-shadow:0 0 45px rgba(168,117,255,.4); }
-    .section-label { align-items:center; display:flex; justify-content:space-between; margin:2.5rem 0 1rem; } .section-label h2 { font-size:1.05rem; margin:0; } .section-label span { color:var(--subtle); font-size:.65rem; letter-spacing:.1em; text-transform:uppercase; }
-    .module-card,.metric-card,.analysis-card,.pipeline-card,.planned-panel { background:linear-gradient(145deg,rgba(32,27,48,.9),rgba(17,15,25,.86)); border:1px solid var(--line); border-radius:20px; box-shadow:0 22px 60px rgba(0,0,0,.2); } .module-card { min-height:270px; overflow:hidden; padding:1.35rem; position:relative; } .module-card:after { background:radial-gradient(circle,var(--card-glow,rgba(168,117,255,.16)),transparent 67%); content:''; height:150px; position:absolute; right:-65px; top:-75px; width:150px; } .module-card.theme-currency { --card-accent:var(--amber); --card-glow:rgba(245,189,105,.18); } .module-card.theme-activity { --card-accent:var(--cyan); --card-glow:rgba(84,217,255,.16); } .module-card.theme-scam { --card-accent:var(--mint); --card-glow:rgba(102,227,165,.16); } .module-card .module-icon { align-items:center; background:color-mix(in srgb,var(--card-accent, var(--purple)) 13%,transparent); border:1px solid color-mix(in srgb,var(--card-accent, var(--purple)) 28%,transparent); border-radius:13px; display:flex; font-size:1.25rem; height:43px; justify-content:center; width:43px; } .module-title { color:var(--ink); font-size:1.16rem; font-weight:700; margin-top:1.2rem; } .module-tech { color:var(--card-accent,var(--bright)); font-size:.65rem; letter-spacing:.04em; margin-top:.28rem; text-transform:uppercase; } .module-description { color:var(--muted); font-size:.78rem; line-height:1.6; margin:1.25rem 0; min-height:50px; } .status-online,.status-planned { font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; } .status-online { color:var(--green); } .status-planned { color:var(--amber); } .module-meta { bottom:1.3rem; color:var(--subtle); display:flex; font-family:'DM Mono',monospace; font-size:.58rem; gap:1.2rem; letter-spacing:.07em; position:absolute; text-transform:uppercase; } .module-meta strong { color:var(--card-accent,var(--muted)); display:block; font-size:.68rem; margin-top:.22rem; }
-    .metric-card { min-height:92px; padding:1.1rem 1.25rem; } .metric-label { color:var(--subtle); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; } .metric-value { color:var(--ink); font-size:1.65rem; font-weight:800; margin-top:.3rem; } .metric-value.purple { color:var(--bright); } .metric-value.green { color:var(--green); } .metric-value.amber { color:var(--amber); }
-    .feature-title { color:var(--ink); font-size:clamp(1.8rem,3vw,3rem); font-weight:800; line-height:1.05; margin:.45rem 0 .6rem; } .analysis-card { min-height:390px; padding:1.35rem; } .card-kicker { color:var(--subtle); font-size:.63rem; letter-spacing:.12em; text-transform:uppercase; } .upload-zone,.result-empty { align-items:center; border-radius:15px; display:flex; justify-content:center; min-height:210px; text-align:center; } .upload-zone { background:rgba(168,117,255,.055); border:1px dashed rgba(196,154,255,.28); padding:1.1rem; } .result-empty { background:rgba(255,255,255,.025); border:1px solid var(--line); flex-direction:column; } .result-word { color:var(--green); font-size:2.6rem; font-weight:800; letter-spacing:.04em; } .result-word.fake { color:var(--red); } .confidence-number { color:var(--ink); font-family:'DM Mono',monospace; font-size:1.7rem; } .confidence-label { color:var(--muted); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase; } .gauge { margin:.9rem auto .35rem; position:relative; width:154px; } .gauge svg { display:block; transform:rotate(-90deg); } .gauge-bg,.gauge-fill { fill:none; stroke-linecap:round; stroke-width:10; } .gauge-bg { stroke:rgba(255,255,255,.08); } .gauge-fill { stroke:var(--bright); } .gauge-value { align-items:center; display:flex; flex-direction:column; inset:0; justify-content:center; position:absolute; }
-    .pipeline-card { padding:1.25rem; } .pipeline { align-items:center; display:flex; gap:.35rem; justify-content:space-between; overflow-x:auto; padding:.8rem 0 .15rem; } .pipeline-step { align-items:center; display:flex; flex:1; gap:.35rem; min-width:100px; } .pipeline-node { align-items:center; background:rgba(168,117,255,.12); border:1px solid rgba(168,117,255,.27); border-radius:11px; color:var(--bright); display:flex; font-family:'DM Mono',monospace; font-size:.58rem; justify-content:center; min-height:55px; padding:.45rem; text-align:center; width:100%; } .pipeline-arrow { color:var(--subtle); font-size:1.2rem; } .disclaimer { background:rgba(245,189,105,.06); border:1px solid rgba(245,189,105,.18); border-radius:14px; color:#c9bda9; font-size:.72rem; line-height:1.55; padding:.85rem 1rem; } .planned-panel { min-height:300px; padding:2rem; text-align:center; } .planned-panel.theme-activity { border-color:rgba(84,217,255,.3); box-shadow:0 0 40px rgba(84,217,255,.08); } .planned-panel.theme-scam { border-color:rgba(102,227,165,.3); box-shadow:0 0 40px rgba(102,227,165,.08); } .planned-icon { font-size:2.5rem; margin-bottom:.8rem; } .planned-title { color:var(--ink); font-size:1.5rem; font-weight:800; } .planned-copy { color:var(--muted); line-height:1.7; margin:.7rem auto 1.4rem; max-width:580px; } .planned-chip { border:1px solid rgba(245,189,105,.3); border-radius:999px; color:var(--amber); display:inline-block; font-family:'DM Mono',monospace; font-size:.64rem; letter-spacing:.1em; padding:.5rem .8rem; text-transform:uppercase; }
-    .stButton > button { background:rgba(168,117,255,.11); border:1px solid rgba(196,154,255,.25); border-radius:11px; color:var(--ink); font-family:'Manrope',sans-serif; font-size:.78rem; font-weight:700; min-height:2.45rem; transition:all .2s ease; } .stButton > button:hover { background:rgba(168,117,255,.23); border-color:var(--bright); color:white; transform:translateY(-1px); } [data-testid="stFileUploaderDropzone"] { background:transparent; border:0; } [data-testid="stImage"] img { border:1px solid var(--line); border-radius:14px; } [data-testid="stMetric"] { background:rgba(255,255,255,.025); border:1px solid var(--line); border-radius:12px; padding:.75rem; } [data-testid="stMetricLabel"] { color:var(--subtle); } [data-testid="stMetricValue"] { color:var(--ink); font-family:'DM Mono',monospace; font-size:1.05rem; }
-    @media (max-width:760px) { .block-container { padding-left:1rem; padding-right:1rem; } .hero-orbit { display:none; } .pipeline { align-items:stretch; flex-direction:column; } .pipeline-step { width:100%; } .pipeline-arrow { display:none; } }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap');
 
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
-    :root { --ink:#f1f4f5; --muted:#a8b2b8; --subtle:#79878e; --line:rgba(232,242,246,.13); --purple:#74cfdf; --bright:#9adce7; --green:#74d6ac; --amber:#e9ae70; --cyan:#83cbd8; --mint:#83d5b5; --red:#e98984; }
-    html,body,[class*="css"] { font-family:'Manrope',sans-serif; }
-    .stApp { background:#080d11; background-image:radial-gradient(ellipse at 4% 10%,rgba(151,104,67,.12),transparent 38%),radial-gradient(ellipse at 96% 8%,rgba(60,126,142,.14),transparent 36%),linear-gradient(180deg,#0b1116 0%,#080d11 58%,#070b0e 100%); color:var(--ink); }
-    [data-testid="stHeader"] { background:transparent; }
-    [data-testid="stMainBlockContainer"] { max-width:1380px; padding-top:1.6rem; }
-    .block-container { padding-left:3rem; padding-right:3rem; }
-    h1,h2,h3,h4,p { letter-spacing:0; }
-    h1,h2,h3,h4 { color:var(--ink); }
-    p,li { color:var(--muted); }
-    hr { border-color:var(--line); }
-    .topbar { align-items:center; display:flex; justify-content:flex-start; margin-bottom:1.2rem; min-height:48px; }
-    .brand { align-items:center; display:flex; gap:.75rem; }
-    .brand-mark { align-items:center; background:linear-gradient(145deg,rgba(238,247,249,.13),rgba(121,160,171,.06)); border:1px solid rgba(226,240,244,.19); border-radius:12px; box-shadow:inset 0 1px rgba(255,255,255,.12),0 8px 22px rgba(0,0,0,.18); display:grid; font-size:1.15rem; height:38px; justify-content:center; width:38px; }
-    .brand-name { color:var(--ink); font-size:.82rem; font-weight:700; letter-spacing:.07em; line-height:1.3; }
-    .brand-caption,.eyebrow,.section-label span,.module-tech,.status-online,.status-planned,.metric-label,.card-kicker { font-family:'DM Mono',monospace; }
-    .brand-caption { color:var(--subtle); font-size:.62rem; letter-spacing:.04em; }
-    .online { display:none; }
-    .eyebrow { color:#9ccbd2; font-size:.66rem; letter-spacing:.13em; text-transform:uppercase; }
-    .hero-title { color:var(--ink); font-size:3rem; font-weight:700; line-height:1.06; margin:.5rem 0 .7rem; }
-    .hero-copy,.feature-copy { color:var(--muted); line-height:1.65; max-width:600px; }
-    .hero-copy { font-size:.92rem; }
-    .hero-copy strong { color:#d6e0e3; font-weight:600; }
-    .hero-visual { align-items:center; animation:hero-arrive .7s ease-out both; display:flex; height:158px; justify-content:center; margin:.1rem auto 0; max-width:400px; position:relative; }
-    .hero-visual:before,.hero-visual:after { border:1px solid rgba(178,219,225,.17); border-radius:50%; content:''; height:126px; left:50%; position:absolute; top:50%; transform:translate(-50%,-50%); width:126px; }
-    .hero-visual:after { height:155px; opacity:.6; width:260px; }
-    .hero-core { align-items:center; animation:core-pulse 4.8s ease-in-out infinite; background:radial-gradient(circle at 38% 30%,rgba(232,250,252,.26),rgba(89,145,156,.13) 43%,rgba(14,27,33,.8) 75%); border:1px solid rgba(206,237,240,.45); border-radius:50%; box-shadow:0 10px 32px rgba(0,0,0,.27),inset 0 1px rgba(255,255,255,.3),0 0 22px rgba(113,197,207,.16); color:#e8f7f7; display:flex; font-family:'DM Mono',monospace; font-size:1.65rem; font-weight:500; height:72px; justify-content:center; position:relative; text-shadow:0 1px 8px rgba(255,255,255,.25); width:72px; z-index:1; }
-    .hero-hand { filter:drop-shadow(0 5px 10px rgba(0,0,0,.35)); font-size:3.1rem; position:relative; z-index:2; }
-    .hero-hand.robot { margin-right:-.1rem; transform:rotate(-14deg); }
-    .hero-hand.human { margin-left:-.1rem; transform:rotate(8deg); }
-    .section-label { align-items:center; display:flex; justify-content:space-between; margin:1.5rem 0 .9rem; }
-    .section-label h2 { font-size:1.02rem; font-weight:600; margin:0; }
-    .section-label span { color:var(--subtle); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; }
-    .module-card,.metric-card,.analysis-card,.pipeline-card,.planned-panel { background:linear-gradient(145deg,rgba(245,250,251,.075),rgba(153,183,189,.035)); border:1px solid var(--line); border-radius:26px; box-shadow:0 16px 38px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.14); backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px); }
-    .module-card { display:flex; flex-direction:column; min-height:252px; overflow:hidden; padding:1.35rem; position:relative; transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease; }
-    .module-card:before { background:linear-gradient(115deg,rgba(255,255,255,.075),transparent 42%); content:''; inset:0; pointer-events:none; position:absolute; }
-    .module-card:after { background:radial-gradient(circle,var(--card-glow),transparent 68%); content:''; height:180px; opacity:.72; position:absolute; right:-90px; top:-105px; width:180px; }
-    .module-card:hover { border-color:color-mix(in srgb,var(--card-accent) 52%,rgba(255,255,255,.2)); box-shadow:0 20px 42px rgba(0,0,0,.26),0 0 25px color-mix(in srgb,var(--card-accent) 10%,transparent),inset 0 1px rgba(255,255,255,.2); transform:translateY(-3px); }
-    .module-card.theme-currency { --card-accent:#e9ae70; --card-glow:rgba(233,174,112,.18); background:linear-gradient(145deg,rgba(111,75,45,.2),rgba(228,237,238,.04)); border-color:rgba(233,174,112,.24); }
-    .module-card.theme-activity { --card-accent:#83cbd8; --card-glow:rgba(131,203,216,.17); background:linear-gradient(145deg,rgba(54,103,119,.2),rgba(228,237,238,.04)); border-color:rgba(131,203,216,.24); }
-    .module-card.theme-scam { --card-accent:#83d5b5; --card-glow:rgba(131,213,181,.16); background:linear-gradient(145deg,rgba(51,105,82,.2),rgba(228,237,238,.04)); border-color:rgba(131,213,181,.23); }
-    .module-card .module-icon { align-items:center; background:rgba(255,255,255,.075); border:1px solid rgba(255,255,255,.13); border-radius:13px; display:flex; font-size:1.12rem; height:40px; justify-content:center; position:relative; width:40px; z-index:1; }
-    .module-title { color:var(--ink); font-size:1.12rem; font-weight:650; line-height:1.35; margin-top:.85rem; position:relative; z-index:1; }
-    .module-tech { color:var(--card-accent); font-size:.62rem; letter-spacing:.04em; margin-top:.22rem; text-transform:uppercase; }
-    .module-description { color:#aebbc0; flex:1; font-size:.79rem; line-height:1.55; margin:.8rem 0 .65rem; }
-    .status-online,.status-planned { font-size:.61rem; letter-spacing:.06em; text-transform:uppercase; }
-    .status-online { color:var(--card-accent); }
-    .status-planned { color:#b6c5c7; }
-    .module-meta { display:none; }
-    .metric-card { min-height:78px; padding:.85rem .9rem; }
-    .metric-label { color:var(--subtle); font-size:.58rem; letter-spacing:.07em; text-transform:uppercase; }
-    .metric-value { color:var(--ink); font-size:1.1rem; font-weight:650; margin-top:.28rem; overflow-wrap:anywhere; }
-    .metric-value.purple { color:var(--cyan); }
-    .metric-value.cyan { color:var(--cyan); }
-    .feature-title { color:var(--ink); font-size:2.35rem; font-weight:700; line-height:1.08; margin:.42rem 0 .6rem; }
-    .analysis-card { padding:1.2rem; }
-    .card-kicker { color:var(--subtle); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; }
-    .result-empty { align-items:center; background:linear-gradient(145deg,rgba(238,248,249,.075),rgba(121,157,163,.045)); border:1px solid rgba(230,243,245,.15); border-radius:24px; box-shadow:0 14px 36px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.14); display:flex; flex-direction:column; justify-content:center; min-height:238px; text-align:center; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
-    .result-empty.result-real { background:linear-gradient(145deg,rgba(76,132,105,.19),rgba(235,246,240,.035)); border-color:rgba(131,213,181,.32); box-shadow:0 14px 36px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.16),0 0 26px rgba(131,213,181,.07); }
-    .result-empty.result-fake { background:linear-gradient(145deg,rgba(143,70,69,.2),rgba(247,235,234,.035)); border-color:rgba(233,137,132,.34); box-shadow:0 14px 36px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.16),0 0 26px rgba(233,137,132,.08); }
-    .result-empty.result-unclear { background:linear-gradient(145deg,rgba(143,104,57,.19),rgba(248,241,229,.035)); border-color:rgba(233,174,112,.34); }
-    .result-word { color:var(--mint); font-size:2.8rem; font-weight:700; }
-    .result-word.fake { color:var(--red); }
-    .result-word.unclear { color:var(--amber); }
-    .confidence-number { color:var(--ink); font-family:'DM Mono',monospace; font-size:1.55rem; }
-    .confidence-label { color:var(--muted); font-size:.65rem; letter-spacing:.09em; text-transform:uppercase; }
-    .gauge { margin:.7rem auto .3rem; position:relative; width:148px; }
-    .gauge svg { display:block; transform:rotate(-90deg); }
-    .gauge-bg,.gauge-fill { fill:none; stroke-linecap:round; stroke-width:8; }
-    .gauge-bg { stroke:rgba(230,242,245,.13); }
-    .gauge-fill { filter:drop-shadow(0 1px 5px rgba(233,174,112,.25)); stroke:var(--amber); }
-    .gauge-value { align-items:center; display:flex; flex-direction:column; inset:0; justify-content:center; position:absolute; }
-    .pipeline { align-items:center; display:flex; gap:.35rem; justify-content:space-between; margin:.2rem auto 1.4rem; max-width:960px; width:100%; }
-    .pipeline-step { align-items:center; display:flex; flex:1; gap:.32rem; min-width:0; }
-    .pipeline-node { align-items:center; background:linear-gradient(145deg,rgba(237,249,250,.095),rgba(121,162,168,.045)); border:1px solid rgba(224,241,243,.16); border-radius:18px; box-shadow:inset 0 1px rgba(255,255,255,.16),0 8px 20px rgba(0,0,0,.12); color:#dce9eb; display:flex; flex-direction:column; font-family:'DM Mono',monospace; font-size:.65rem; gap:.35rem; justify-content:center; min-height:70px; min-width:0; padding:.55rem .35rem; text-align:center; width:100%; backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); }
-    .flow-label { color:#bac9cc; font-size:.55rem; letter-spacing:.08em; }
-    .flow-detail { color:#ecf3f3; font-family:'Manrope',sans-serif; font-size:.75rem; font-weight:600; line-height:1.25; overflow-wrap:anywhere; }
-    .pipeline-arrow { color:rgba(222,237,239,.55); flex:0 0 auto; font-size:.9rem; }
-    .disclaimer { background:rgba(230,242,244,.035); border:1px solid rgba(230,242,244,.1); border-radius:16px; color:#9daeb2; font-size:.7rem; line-height:1.55; padding:.7rem .9rem; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
-    .planned-panel { min-height:260px; padding:1.8rem; text-align:center; }
-    .planned-panel.theme-activity { border-color:rgba(131,203,216,.27); }
-    .planned-panel.theme-scam { border-color:rgba(131,213,181,.25); }
-    .planned-icon { font-size:2.25rem; margin-bottom:.7rem; }
-    .planned-title { color:var(--ink); font-size:1.35rem; font-weight:700; }
-    .planned-copy { color:var(--muted); line-height:1.65; margin:.65rem auto 1.2rem; max-width:580px; }
-    .planned-chip { background:rgba(255,255,255,.04); border:1px solid rgba(233,174,112,.22); border-radius:999px; color:#d8b489; display:inline-block; font-family:'DM Mono',monospace; font-size:.61rem; letter-spacing:.08em; padding:.42rem .72rem; text-transform:uppercase; }
-    .stButton > button { background:rgba(234,244,246,.055); border:1px solid rgba(229,241,243,.16); border-radius:999px; color:#e1ebed; font-family:'Manrope',sans-serif; font-size:.78rem; font-weight:600; min-height:2.55rem; transition:background .22s ease,border-color .22s ease,box-shadow .22s ease,transform .22s ease; }
-    .stButton > button:hover { background:rgba(234,244,246,.1); border-color:rgba(229,241,243,.3); box-shadow:0 8px 20px rgba(0,0,0,.18); color:#fff; transform:translateY(-1px); }
-    .stButton > button:focus-visible { box-shadow:0 0 0 3px rgba(152,207,216,.22); }
-    [data-testid="stFileUploader"] { background:linear-gradient(145deg,rgba(241,249,250,.07),rgba(130,164,170,.035)); border:1px solid rgba(233,174,112,.24); border-radius:22px; padding:1rem; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); }
-    [data-testid="stFileUploaderDropzone"] { background:rgba(240,249,250,.025); border:1px dashed rgba(233,174,112,.32); border-radius:16px; }
-    [data-testid="stFileUploaderDropzone"]:hover { background:rgba(233,174,112,.055); border-color:rgba(233,174,112,.52); }
-    [data-testid="stFileUploaderDropzone"] button { background:rgba(240,249,250,.075); border-color:rgba(240,249,250,.16); border-radius:999px; }
-    [data-testid="stImage"] img { border:1px solid rgba(230,242,244,.16); border-radius:20px; }
-    [data-testid="stMetric"] { background:rgba(240,249,250,.045); border:1px solid rgba(230,242,244,.12); border-radius:16px; padding:.7rem; }
-    [data-testid="stMetricLabel"] { color:var(--subtle); }
-    [data-testid="stMetricValue"] { color:var(--ink); font-family:'DM Mono',monospace; font-size:1rem; }
-    @keyframes hero-arrive { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes core-pulse { 50% { box-shadow:0 12px 34px rgba(0,0,0,.3),inset 0 1px rgba(255,255,255,.35),0 0 25px rgba(113,197,207,.23); } }
-    @media (max-width:900px) { .block-container { padding-left:1.5rem; padding-right:1.5rem; } .hero-title { font-size:2.5rem; } .module-card { padding:1.15rem; } }
-    @media (max-width:760px) { .block-container { padding-left:1rem; padding-right:1rem; } .hero-title { font-size:2.2rem; } .hero-visual { height:126px; margin-top:.8rem; } .hero-hand { font-size:2.55rem; } .hero-core { height:60px; width:60px; } .hero-visual:after { height:138px; width:220px; } .module-card { min-height:220px; } .feature-title { font-size:1.9rem; } .pipeline { gap:.12rem; } .pipeline-step { gap:.12rem; } .pipeline-node { min-height:72px; padding:.45rem .2rem; } .flow-label { font-size:.5rem; } .flow-detail { font-size:.63rem; } .pipeline-arrow { font-size:.75rem; } }
-    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
+    :root {
+        --ink: #0f172a;
+        --muted: #475569;
+        --subtle: #64748b;
+        --line: #e2e8f0;
+        --surface: #ffffff;
+        --surface-alt: #f8fafc;
+        --brand-dark: #0f172a;
+        --brand-hover: #1e293b;
+        --accent-teal: #0f766e;
+        --green: #047857;
+        --amber: #b45309;
+        --red: #b91c1c;
+    }
+
+    html, body, [class*="css"] {
+        font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+        color: var(--ink);
+    }
+
+    .stApp {
+        color: var(--ink);
+        background-color: #f8fafc;
+        background-image: 
+            linear-gradient(rgba(15, 23, 42, 0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(15, 23, 42, 0.025) 1px, transparent 1px);
+        background-size: 32px 32px;
+    }
+
+    [data-testid="stHeader"] {
+        background: transparent;
+    }
+
+    [data-testid="stSidebar"] {
+        background-color: #ffffff !important;
+        border-right: 1px solid #e2e8f0 !important;
+        box-shadow: 2px 0 12px rgba(15, 23, 42, 0.03);
+    }
+
+    [data-testid="stSidebar"] hr {
+        border-color: #e2e8f0 !important;
+    }
+
+    [data-testid="stMainBlockContainer"] {
+        max-width: 1380px;
+        padding-top: 1.5rem;
+    }
+
+    .block-container {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+
+    h1, h2, h3, h4, p { letter-spacing: -0.01em; }
+    h1, h2, h3, h4 { color: var(--ink); font-weight: 750; }
+    p, li { color: var(--muted); }
+    hr { border-color: var(--line); }
+
+    .topbar {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1.2rem;
+        min-height: 48px;
+    }
+
+    .brand {
+        align-items: center;
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .brand-mark {
+        align-items: center;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+        display: grid;
+        font-size: 1.25rem;
+        height: 40px;
+        justify-content: center;
+        width: 40px;
+    }
+
+    .brand-name {
+        color: var(--ink);
+        font-size: 0.88rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        line-height: 1.25;
+    }
+
+    .brand-caption, .eyebrow, .section-label span, .module-tech,
+    .status-online, .status-planned, .metric-label, .card-kicker {
+        font-family: 'DM Mono', monospace;
+    }
+
+    .brand-caption {
+        color: var(--subtle);
+        font-size: 0.64rem;
+        letter-spacing: 0.04em;
+    }
+
+    .eyebrow {
+        color: var(--accent-teal);
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .hero-title {
+        color: var(--ink);
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin: 0.4rem 0 0.6rem;
+    }
+
+    .hero-copy, .feature-copy {
+        color: var(--muted);
+        line-height: 1.65;
+        max-width: 620px;
+        font-size: 0.95rem;
+    }
+
+    .section-label {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 1.8rem 0 0.9rem;
+    }
+
+    .section-label h2 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin: 0;
+        color: var(--ink);
+    }
+
+    .section-label span {
+        color: var(--subtle);
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+    }
+
+    /* Light Theme Cards */
+    .module-card, .metric-card, .analysis-card, .pipeline-card, .planned-panel {
+        background: #ffffff;
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        box-shadow: 0 4px 18px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+    }
+
+    .module-card {
+        display: flex;
+        flex-direction: column;
+        min-height: 252px;
+        overflow: hidden;
+        padding: 1.35rem;
+        position: relative;
+        transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .module-card:hover {
+        border-color: #cbd5e1;
+        box-shadow: 0 12px 28px -4px rgba(15, 23, 42, 0.09);
+        transform: translateY(-2px);
+    }
+
+    .module-card.theme-currency {
+        --card-accent: #b45309;
+        background: linear-gradient(155deg, #fffdf7 0%, #ffffff 100%);
+        border-color: #fed7aa;
+    }
+
+    .module-card.theme-activity {
+        --card-accent: #0f766e;
+        background: linear-gradient(155deg, #f0fdfa 0%, #ffffff 100%);
+        border-color: #99f6e4;
+    }
+
+    .module-card.theme-scam {
+        --card-accent: #047857;
+        background: linear-gradient(155deg, #f0fdf4 0%, #ffffff 100%);
+        border-color: #a7f3d0;
+    }
+
+    .module-card .module-icon {
+        align-items: center;
+        background: #f8fafc;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        display: flex;
+        font-size: 1.25rem;
+        height: 42px;
+        justify-content: center;
+        width: 42px;
+    }
+
+    .module-title {
+        color: var(--ink);
+        font-size: 1.15rem;
+        font-weight: 750;
+        line-height: 1.3;
+        margin-top: 0.9rem;
+    }
+
+    .module-tech {
+        color: var(--card-accent);
+        font-size: 0.65rem;
+        letter-spacing: 0.04em;
+        margin-top: 0.22rem;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .module-description {
+        color: var(--muted);
+        flex: 1;
+        font-size: 0.82rem;
+        line-height: 1.55;
+        margin: 0.8rem 0 0.65rem;
+    }
+
+    .status-online, .status-planned {
+        font-size: 0.64rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .status-online { color: var(--green); }
+    .status-planned { color: var(--amber); }
+
+    /* Metrics */
+    .metric-card {
+        min-height: 80px;
+        padding: 0.9rem 1rem;
+    }
+
+    .metric-label {
+        color: var(--subtle);
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .metric-value {
+        color: var(--ink);
+        font-size: 1.25rem;
+        font-weight: 800;
+        margin-top: 0.25rem;
+    }
+
+    .metric-value.teal { color: var(--accent-teal); }
+    .metric-value.green { color: var(--green); }
+    .metric-value.amber { color: var(--amber); }
+    .metric-value.slate { color: var(--muted); }
+
+    .feature-title {
+        color: var(--ink);
+        font-size: 2.2rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin: 0.4rem 0 0.55rem;
+    }
+
+    /* Results Area */
+    .result-empty {
+        align-items: center;
+        background: #f8fafc;
+        border: 1px dashed #cbd5e1;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 238px;
+        text-align: center;
+        padding: 1.5rem;
+    }
+
+    .result-empty.result-real {
+        background: #f0fdf4;
+        border: 1px solid #86efac;
+        box-shadow: 0 4px 16px rgba(4, 120, 87, 0.06);
+    }
+
+    .result-empty.result-fake {
+        background: #fef2f2;
+        border: 1px solid #fca5a5;
+        box-shadow: 0 4px 16px rgba(185, 28, 28, 0.06);
+    }
+
+    .result-empty.result-unclear {
+        background: #fffdf7;
+        border: 1px solid #fed7aa;
+        box-shadow: 0 4px 16px rgba(180, 83, 9, 0.06);
+    }
+
+    .result-word {
+        color: var(--green);
+        font-size: 2.6rem;
+        font-weight: 800;
+    }
+
+    .result-word.fake { color: var(--red); }
+    .result-word.unclear { color: var(--amber); }
+
+    .confidence-number {
+        color: var(--ink);
+        font-family: 'DM Mono', monospace;
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+
+    .confidence-label {
+        color: var(--subtle);
+        font-size: 0.65rem;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+    }
+
+    .gauge { margin: 0.7rem auto 0.3rem; position: relative; width: 148px; }
+    .gauge svg { display: block; transform: rotate(-90deg); }
+    .gauge-bg, .gauge-fill { fill: none; stroke-linecap: round; stroke-width: 8; }
+    .gauge-bg { stroke: #e2e8f0; }
+    .gauge-fill { stroke: var(--amber); }
+    .gauge-value { align-items: center; display: flex; flex-direction: column; inset: 0; justify-content: center; position: absolute; }
+
+    /* Flow / Pipeline */
+    .pipeline {
+        align-items: center;
+        display: flex;
+        gap: 0.35rem;
+        justify-content: space-between;
+        margin: 0.2rem auto 1.4rem;
+        max-width: 960px;
+        width: 100%;
+    }
+
+    .pipeline-step { align-items: center; display: flex; flex: 1; gap: 0.32rem; min-width: 0; }
+    .pipeline-node {
+        align-items: center;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+        color: var(--ink);
+        display: flex;
+        flex-direction: column;
+        font-family: 'DM Mono', monospace;
+        font-size: 0.65rem;
+        gap: 0.3rem;
+        justify-content: center;
+        min-height: 68px;
+        min-width: 0;
+        padding: 0.5rem 0.35rem;
+        text-align: center;
+        width: 100%;
+    }
+
+    .flow-label { color: var(--subtle); font-size: 0.56rem; letter-spacing: 0.08em; font-weight: 600; }
+    .flow-detail { color: var(--ink); font-family: 'Manrope', sans-serif; font-size: 0.78rem; font-weight: 700; line-height: 1.25; }
+    .pipeline-arrow { color: #94a3b8; flex: 0 0 auto; font-size: 0.95rem; }
+
+    .disclaimer {
+        background: #fffbeb;
+        border: 1px solid #fef3c7;
+        border-radius: 14px;
+        color: #92400e;
+        font-size: 0.72rem;
+        line-height: 1.55;
+        padding: 0.75rem 0.95rem;
+    }
+
+    .planned-panel { min-height: 260px; padding: 1.8rem; text-align: center; }
+    .planned-icon { font-size: 2.25rem; margin-bottom: 0.7rem; }
+    .planned-title { color: var(--ink); font-size: 1.35rem; font-weight: 750; }
+    .planned-copy { color: var(--muted); line-height: 1.65; margin: 0.65rem auto 1.2rem; max-width: 580px; }
+    .planned-chip {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        border-radius: 999px;
+        color: var(--subtle);
+        display: inline-block;
+        font-family: 'DM Mono', monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+        padding: 0.42rem 0.72rem;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    /* High-Contrast Executive Button Palette */
+    .stButton > button,
+    .stFormSubmitButton > button,
+    button[data-testid="baseButton-secondary"],
+    button[data-testid="baseButton-primary"] {
+        border-radius: 999px !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 0.82rem !important;
+        font-weight: 700 !important;
+        min-height: 2.5rem !important;
+        letter-spacing: 0.01em !important;
+        transition: all 0.18s ease !important;
+    }
+
+    /* Primary buttons: Deep Slate / Carbon */
+    .stButton > button[kind="primary"],
+    .stFormSubmitButton > button[kind="primary"],
+    button[data-testid="baseButton-primary"] {
+        background: #0f172a !important;
+        border: 1px solid #0f172a !important;
+        color: #ffffff !important;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12) !important;
+    }
+
+    .stButton > button[kind="primary"]:hover,
+    .stFormSubmitButton > button[kind="primary"]:hover,
+    button[data-testid="baseButton-primary"]:hover {
+        background: #1e293b !important;
+        border-color: #1e293b !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* Secondary buttons: Clean White with Slate outline */
+    .stButton > button[kind="secondary"],
+    .stFormSubmitButton > button[kind="secondary"],
+    .stButton > button:not([kind="primary"]),
+    .stFormSubmitButton > button:not([kind="primary"]),
+    button[data-testid="baseButton-secondary"] {
+        background: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        color: #0f172a !important;
+        box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04) !important;
+    }
+
+    .stButton > button[kind="secondary"]:hover,
+    .stFormSubmitButton > button[kind="secondary"]:hover,
+    .stButton > button:not([kind="primary"]):hover,
+    .stFormSubmitButton > button:not([kind="primary"]):hover,
+    button[data-testid="baseButton-secondary"]:hover {
+        background: #f8fafc !important;
+        border-color: #94a3b8 !important;
+        color: #0f172a !important;
+        box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* Sign Out buttons: Soft Alert Red */
+    div.st-key-topbar_signout button,
+    div.st-key-sidebar_signout button {
+        background: #fef2f2 !important;
+        border: 1px solid #fecaca !important;
+        color: #991b1b !important;
+    }
+
+    div.st-key-topbar_signout button:hover,
+    div.st-key-sidebar_signout button:hover {
+        background: #fee2e2 !important;
+        border-color: #f87171 !important;
+        color: #7f1d1d !important;
+    }
+
+    /* Segmented Control & Tabs */
+    [data-testid="stSegmentedControl"] button[aria-selected="true"] {
+        background-color: #0f172a !important;
+        color: #ffffff !important;
+    }
+
+    [data-baseweb="tab-list"] button[aria-selected="true"] {
+        color: #0f172a !important;
+        border-bottom-color: #0f172a !important;
+        font-weight: 700 !important;
+    }
+
+    /* File uploader */
+    [data-testid="stFileUploader"] {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 18px;
+        padding: 1rem;
+        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+
+    [data-testid="stFileUploaderDropzone"] {
+        background: #f8fafc;
+        border: 1px dashed #cbd5e1;
+        border-radius: 14px;
+    }
+
+    [data-testid="stFileUploaderDropzone"]:hover {
+        background: #f8fafc;
+        border-color: #0f172a;
+    }
+
+    [data-testid="stImage"] img {
+        border: 1px solid #e2e8f0;
+        border-radius: 16px;
+        box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    }
+
+    [data-testid="stMetric"] {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        padding: 0.75rem 1rem;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+    }
+
+    [data-testid="stMetricLabel"] { color: var(--subtle); font-weight: 600; }
+    [data-testid="stMetricValue"] { color: var(--ink); font-family: 'DM Mono', monospace; font-size: 1.05rem; font-weight: 700; }
     </style>
     """,
     unsafe_allow_html=True
@@ -197,8 +592,8 @@ def render_topbar(active_module=None):
         user_c1, user_c2 = st.columns([1.8, 1])
         with user_c1:
             st.markdown(
-                f'<div style="text-align:right; padding-top:0.4rem; font-family:\'DM Mono\', monospace; font-size:0.75rem; color:#74d6ac;">'
-                f'👤 <strong>{user_name}</strong> <span style="color:#79878e;">(@{username})</span>'
+                f'<div style="text-align:right; padding-top:0.45rem; font-family:\'DM Mono\', monospace; font-size:0.75rem; color:#059669;">'
+                f'👤 <strong>{user_name}</strong> <span style="color:#64748b;">(@{username})</span>'
                 f'</div>',
                 unsafe_allow_html=True,
             )
@@ -220,6 +615,107 @@ def render_topbar(active_module=None):
                 width="stretch",
             ) and module != active_module:
                 set_module(module)
+
+
+def render_sidebar(active_module=None):
+    with st.sidebar:
+        # App Branding Header
+        st.markdown(
+            """
+            <div style="display:flex; align-items:center; gap:0.75rem; padding:0.4rem 0 1rem; border-bottom:1px solid #e2e8f0; margin-bottom:1.2rem;">
+                <div style="font-size:1.6rem; background:#f1f5f9; border:1px solid #e2e8f0; border-radius:12px; width:44px; height:44px; display:grid; place-items:center;">🛡️</div>
+                <div>
+                    <div style="font-size:0.92rem; font-weight:800; color:#0f172a; line-height:1.2; letter-spacing:0.04em;">COMMUNITY SAFETY</div>
+                    <div style="font-size:0.64rem; color:#0f766e; font-family:'DM Mono', monospace; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;">Trust AI Platform</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        # User profile chip
+        user = st.session_state.get("user")
+        if user:
+            user_name = user.get("full_name") or user.get("username") or "Member"
+            username = user.get("username", "")
+            st.markdown(
+                f"""
+                <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:0.75rem 0.85rem; margin-bottom:1.2rem; box-shadow:0 1px 3px rgba(15,23,42,0.03);">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <span style="font-size:0.62rem; color:#64748b; font-family:'DM Mono', monospace; text-transform:uppercase; letter-spacing:0.06em;">Active Session</span>
+                        <span style="font-size:0.62rem; color:#047857; font-weight:700; font-family:'DM Mono', monospace;">● Online</span>
+                    </div>
+                    <div style="font-size:0.92rem; font-weight:750; color:#0f172a; margin-top:0.25rem;">👤 {user_name}</div>
+                    <div style="font-size:0.72rem; color:#475569; font-family:'DM Mono', monospace;">@{username}</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        # Navigation section
+        st.markdown(
+            '<div style="font-size:0.68rem; font-weight:700; color:#64748b; font-family:\'DM Mono\', monospace; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.6rem;">AI Modules</div>',
+            unsafe_allow_html=True,
+        )
+
+        sidebar_modules = [
+            ("📊 Dashboard Overview", None),
+            ("💵 Fake Currency Detector", "currency"),
+            ("👁️ Suspicious Activity", "activity"),
+            ("📰 Fake News Detection", "scam"),
+        ]
+
+        for label, mod in sidebar_modules:
+            is_active = (mod == active_module)
+            btn_type = "primary" if is_active else "secondary"
+            if st.button(
+                label,
+                key=f"sidebar_nav_{mod or 'dashboard'}",
+                type=btn_type,
+                use_container_width=True,
+            ) and mod != active_module:
+                set_module(mod)
+
+        st.divider()
+
+        # System Status & AI Models Info
+        st.markdown(
+            '<div style="font-size:0.68rem; font-weight:700; color:#64748b; font-family:\'DM Mono\', monospace; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.6rem;">Intelligence Engines</div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            """
+            <div style="display:flex; flex-direction:column; gap:0.45rem; font-size:0.72rem; font-family:'DM Mono', monospace;">
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#ffffff; padding:0.45rem 0.65rem; border-radius:10px; border:1px solid #e2e8f0;">
+                    <span style="color:#334155;">Currency CNN</span>
+                    <span style="color:#b45309; font-weight:700;">88.7% Acc</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#ffffff; padding:0.45rem 0.65rem; border-radius:10px; border:1px solid #e2e8f0;">
+                    <span style="color:#334155;">YOLOv11 nano</span>
+                    <span style="color:#0f766e; font-weight:700;">80 Classes</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#ffffff; padding:0.45rem 0.65rem; border-radius:10px; border:1px solid #e2e8f0;">
+                    <span style="color:#334155;">Fake News NLP</span>
+                    <span style="color:#047857; font-weight:700;">Linear SVM</span>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; background:#ffffff; padding:0.45rem 0.65rem; border-radius:10px; border:1px solid #e2e8f0;">
+                    <span style="color:#334155;">Cloud Auth</span>
+                    <span style="color:#334155; font-weight:700;">MongoDB</span>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        st.divider()
+
+        # Sign Out in sidebar
+        if st.button("🚪 Sign Out", key="sidebar_signout", use_container_width=True):
+            release_activity_camera()
+            st.session_state["authenticated"] = False
+            st.session_state["user"] = None
+            st.session_state["module"] = None
+            st.rerun()
 
 
 def render_metric_card(label, value, tone=""):
@@ -256,7 +752,7 @@ def render_dashboard():
     render_topbar()
     left, right = st.columns([1.25, .75], gap="large")
     with left:
-        st.markdown('<div class="eyebrow">Community Safety Center / Control Room</div><div class="hero-title">Detect. Analyze.<br><span style="color:#65ddff">Respond responsibly.</span></div><div class="hero-copy">A unified intelligence workspace for visual screening, activity awareness, and digital trust. <strong>Building safer communities through responsible AI.</strong></div>', unsafe_allow_html=True)
+        st.markdown('<div class="eyebrow">Community Safety Center / Control Room</div><div class="hero-title">Detect. Analyze.<br><span style="color:#0f766e">Respond responsibly.</span></div><div class="hero-copy">A unified intelligence workspace for visual screening, activity awareness, and digital trust. <strong>Building safer communities through responsible AI.</strong></div>', unsafe_allow_html=True)
     with right:
         st.markdown('<div class="hero-visual"><span class="hero-hand robot">🦾</span><div class="hero-core">AI</div><span class="hero-hand human">🫲</span></div>', unsafe_allow_html=True)
     st.markdown('<div class="section-label"><h2>AI modules</h2></div>', unsafe_allow_html=True)
@@ -340,7 +836,7 @@ def render_dual_side(side_label, upload_key, upload_card_key, result_card_key):
     with st.container(key=result_card_key):
         st.markdown(f'<div class="scan-side-heading">{side_label} Result</div>', unsafe_allow_html=True)
         if uploaded_file is None:
-            st.markdown('<div class="result-empty result-pending"><div style="color:#e7eff0;font-weight:650">Awaiting image input</div></div>', unsafe_allow_html=True)
+            st.markdown('<div class="result-empty result-pending"><div style="color:#334155;font-weight:650">Awaiting image input</div></div>', unsafe_allow_html=True)
         elif not image_is_valid:
             st.info("No result for this image. Upload a readable currency image.")
         else:
@@ -365,7 +861,7 @@ def render_dual_side(side_label, upload_key, upload_card_key, result_card_key):
 
 def render_currency_detector():
     render_topbar("currency")
-    st.markdown('<div class="eyebrow">CNN / Computer Vision</div><div class="feature-title">Fake Currency<br><span style="color:#ffae58">Detector</span></div><div class="feature-copy">AI-powered Indian currency visual screening. Upload a note and receive a model-based Real/Fake signal.</div>', unsafe_allow_html=True)
+    st.markdown('<div class="eyebrow">CNN / Computer Vision</div><div class="feature-title">Fake Currency<br><span style="color:#b45309">Detector</span></div><div class="feature-copy">AI-powered Indian currency visual screening. Upload a note and receive a model-based Real/Fake signal.</div>', unsafe_allow_html=True)
     scan_mode = st.segmented_control(
         "Scan mode",
         options=["Single-Side Scan", "Dual-Side Scan"],
@@ -392,20 +888,20 @@ def render_currency_detector():
                 except Exception as error:
                     st.error(f"Unable to display this image: {error}")
         with right:
-            st.markdown('<div class="eyebrow">Model output</div><div class="feature-title">AI <span style="color:#65ddff">Result</span></div><div class="feature-copy">The CNN evaluates the image independently of its denomination folder.</div>', unsafe_allow_html=True)
+            st.markdown('<div class="eyebrow">Model output</div><div class="feature-title">AI <span style="color:#0f766e">Result</span></div><div class="feature-copy">The CNN evaluates the image independently of its denomination folder.</div>', unsafe_allow_html=True)
             if uploaded_file is None:
-                st.markdown('<div class="result-empty result-pending"><div style="font-size:2rem;color:#87979c">◌</div><div style="color:#e7eff0;font-weight:650;margin-top:.55rem">Awaiting image input</div><div style="color:#8b999d;font-size:.72rem;margin-top:.35rem">Your prediction will appear here</div></div>', unsafe_allow_html=True)
+                st.markdown('<div class="result-empty result-pending"><div style="font-size:2rem;color:#64748b">◌</div><div style="color:#1e293b;font-weight:700;margin-top:.55rem">Awaiting image input</div><div style="color:#475569;font-size:.78rem;margin-top:.35rem">Your prediction will appear here</div></div>', unsafe_allow_html=True)
             else:
                 try:
                     prediction, confidence = predict_currency_image_ui(uploaded_file)
                     if prediction == "UNCLEAR":
-                        st.markdown('<div class="result-empty result-unclear"><div class="result-word unclear">UNCLEAR</div><div style="color:#e9ae70;font-size:.75rem;margin-top:.45rem">Please scan the note again.</div></div>', unsafe_allow_html=True)
+                        st.markdown('<div class="result-empty result-unclear"><div class="result-word unclear">UNCLEAR</div><div style="color:#92400e;font-size:.75rem;margin-top:.45rem">Please scan the note again.</div></div>', unsafe_allow_html=True)
                     else:
                         word_class = "fake" if prediction == "FAKE" else ""
                         result_style = "result-fake" if prediction == "FAKE" else "result-real"
-                        st.markdown(f'<div class="result-empty {result_style}"><div class="result-word {word_class}">{prediction}</div><div style="color:#98a7aa;font-size:.72rem;margin-top:.25rem">CNN classification</div></div>', unsafe_allow_html=True)
+                        st.markdown(f'<div class="result-empty {result_style}"><div class="result-word {word_class}">{prediction}</div><div style="color:#475569;font-size:.72rem;margin-top:.25rem">CNN classification</div></div>', unsafe_allow_html=True)
                     render_confidence_gauge(confidence)
-                    for column, label, value, tone in zip(st.columns(4), ["Input", "Color", "Model", "Output"], ["224 × 224", "RGB", "CNN", "REAL / FAKE"], ["", "", "cyan", ""]):
+                    for column, label, value, tone in zip(st.columns(4), ["Input", "Color", "Model", "Output"], ["224 × 224", "RGB", "CNN", "REAL / FAKE"], ["", "", "teal", ""]):
                         with column:
                             render_metric_card(label, value, tone)
                 except Exception as error:
@@ -414,10 +910,34 @@ def render_currency_detector():
         st.markdown(
             """
             <style>
-            .st-key-currency-front-upload,.st-key-currency-back-upload { background:linear-gradient(145deg,rgba(241,249,250,.07),rgba(130,164,170,.035)); border:1px solid rgba(233,174,112,.24); border-radius:22px; box-shadow:0 16px 38px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.12); margin-bottom:.9rem; padding:1rem 1.1rem; }
-            .st-key-currency-front-result,.st-key-currency-back-result { background:linear-gradient(145deg,rgba(245,250,251,.075),rgba(153,183,189,.035)); border:1px solid rgba(232,242,246,.13); border-radius:22px; box-shadow:0 16px 38px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.12); padding:1rem 1.1rem; }
-            .scan-side-heading { color:#e1ebed; font-size:1rem; font-weight:650; margin-bottom:.8rem; }
-            .st-key-currency-final-result { background:linear-gradient(145deg,rgba(245,250,251,.075),rgba(153,183,189,.035)); border:1px solid rgba(232,242,246,.15); border-radius:22px; box-shadow:0 16px 38px rgba(0,0,0,.2),inset 0 1px rgba(255,255,255,.14); padding:1.2rem; }
+            .st-key-currency-front-upload, .st-key-currency-back-upload {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 18px;
+                box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+                margin-bottom: 0.9rem;
+                padding: 1.1rem;
+            }
+            .st-key-currency-front-result, .st-key-currency-back-result {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 18px;
+                box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+                padding: 1.1rem;
+            }
+            .scan-side-heading {
+                color: #0f172a;
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.8rem;
+            }
+            .st-key-currency-final-result {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                border-radius: 18px;
+                box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+                padding: 1.25rem;
+            }
             </style>
             """,
             unsafe_allow_html=True,
@@ -445,9 +965,9 @@ def render_currency_detector():
             elif front_result is None or back_result is None:
                 st.info("A final result will appear when both uploaded images are readable and processed successfully.")
             elif "UNCLEAR" in (front_result[0], back_result[0]):
-                st.markdown('<div class="result-empty result-unclear"><div class="result-word unclear">UNCLEAR</div><div style="color:#e9ae70;font-size:.85rem;margin-top:.45rem">At least one side was unclear. Please scan both sides again clearly with good lighting and focus.</div></div>', unsafe_allow_html=True)
+                st.markdown('<div class="result-empty result-unclear"><div class="result-word unclear">UNCLEAR</div><div style="color:#92400e;font-size:.85rem;margin-top:.45rem">At least one side was unclear. Please scan both sides again clearly with good lighting and focus.</div></div>', unsafe_allow_html=True)
             elif front_result[0] != back_result[0]:
-                st.markdown('<div class="result-empty result-unclear"><div class="result-word unclear">UNCLEAR</div><div style="color:#e9ae70;font-size:.85rem;margin-top:.45rem">The two scanned sides produced different predictions. Please scan both sides again with clear lighting and focus.</div></div>', unsafe_allow_html=True)
+                st.markdown('<div class="result-empty result-unclear"><div class="result-word unclear">UNCLEAR</div><div style="color:#92400e;font-size:.85rem;margin-top:.45rem">The two scanned sides produced different predictions. Please scan both sides again with clear lighting and focus.</div></div>', unsafe_allow_html=True)
             else:
                 combined_prediction = f"LIKELY {front_result[0]}"
                 combined_confidence = (front_result[1] + back_result[1]) / 2
@@ -992,7 +1512,7 @@ def render_fake_news_detector():
             st.caption(result["decision_score_explanation"])
         else:
             st.markdown(
-                '<div class="result-empty"><div style="color:#e7eff0;font-weight:650">'
+                '<div class="result-empty"><div style="color:#334155;font-weight:650">'
                 'Awaiting article text</div></div>',
                 unsafe_allow_html=True,
             )
@@ -1029,6 +1549,7 @@ if not st.session_state["authenticated"]:
 if "module" not in st.session_state:
     st.session_state["module"] = None
 active_module = st.session_state["module"]
+render_sidebar(active_module)
 if active_module is None:
     render_dashboard()
 elif active_module == "currency":
@@ -1040,330 +1561,3 @@ elif active_module == "scam":
 else:
     render_topbar(active_module)
     st.error(f"Unknown module selection: {active_module}")
-st.stop()
-
-# -----------------------------------------------------------
-# CUSTOM CSS
-# ----------------------------------------------------------
-
-st.markdown(
-    """
-    <style>
-
-    .main-title {
-        font-size: 42px;
-        font-weight: 700;
-        margin-bottom: 0px;
-    }
-
-    .subtitle {
-        font-size: 18px;
-        color: #9aa4b2;
-        margin-top: 0px;
-    }
-
-    .status {
-        background-color: #10251b;
-        border: 1px solid #1f7a4d;
-        padding: 10px 16px;
-        border-radius: 10px;
-        color: #4ade80;
-        font-weight: 600;
-        text-align: center;
-    }
-
-    .module-card {
-        padding: 22px;
-        border-radius: 14px;
-        border: 1px solid #30363d;
-        background-color: #11161d;
-        min-height: 210px;
-    }
-
-    .module-title {
-        font-size: 23px;
-        font-weight: 650;
-    }
-
-    .module-tech {
-        font-size: 14px;
-        color: #7dd3fc;
-        font-weight: 600;
-    }
-
-    .module-description {
-        color: #b8c0cc;
-        font-size: 15px;
-        line-height: 1.5;
-    }
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# ----------------------------------------------------------
-# HEADER
-# ----------------------------------------------------------
-
-st.markdown(
-    '<div class="main-title">🛡️ Community Safety & Trust AI</div>',
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    '<div class="subtitle">'
-    'AI-powered platform for safety, fraud detection and digital trust'
-    '</div>',
-    unsafe_allow_html=True
-)
-
-st.write("")
-
-# Status
-status_col1, status_col2 = st.columns([5, 1])
-
-with status_col2:
-    st.markdown(
-        '<div class="status">● SYSTEM ONLINE</div>',
-        unsafe_allow_html=True
-    )
-
-st.divider()
-
-# ----------------------------------------------------------
-# INTRO
-# ----------------------------------------------------------
-
-st.subheader("Community Safety Center")
-
-st.write(
-    "Choose an AI module below to analyze currency, "
-    "visual activity, or suspicious digital content."
-)
-
-st.write("")
-
-# ----------------------------------------------------------
-# THREE MODULES
-# ----------------------------------------------------------
-
-col1, col2, col3 = st.columns(3)
-
-# ---------- Currency ----------
-
-with col1:
-
-    st.markdown(
-        """
-        <div class="module-card">
-
-        <div class="module-title">
-        💵 Fake Currency Detector
-        </div>
-
-        <div class="module-tech">
-        CNN • Computer Vision
-        </div>
-
-        <br>
-
-        <div class="module-description">
-        Analyze a currency image and predict whether
-        the note is Real or Fake with a confidence score.
-        </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.write("")
-
-    if st.button(
-        "Open Currency Detector",
-        use_container_width=True
-    ):
-        st.session_state["module"] = "currency"
-
-
-# ---------- Activity ----------
-
-with col2:
-
-    st.markdown(
-        """
-        <div class="module-card">
-
-        <div class="module-title">
-        👁️ Suspicious Activity
-        </div>
-
-        <div class="module-tech">
-        YOLO + Rule Engine • Computer Vision
-        </div>
-
-        <br>
-
-        <div class="module-description">
-        Detect people and objects from webcam/video
-        and generate alerts using safety rules.
-        </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.write("")
-
-    if st.button(
-        "Open Activity Detector",
-        use_container_width=True
-    ):
-        st.session_state["module"] = "activity"
-
-
-# ---------- Scam ----------
-
-with col3:
-
-    st.markdown(
-        """
-        <div class="module-card">
-
-        <div class="module-title">
-        📰 Fake News / Scam Detector
-        </div>
-
-        <div class="module-tech">
-        BERT + NLP • Text Analysis
-        </div>
-
-        <br>
-
-        <div class="module-description">
-        Analyze suspicious news or messages and
-        predict Real/Fake with confidence.
-        </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.write("")
-
-    if st.button(
-        "Open Scam Detector",
-        use_container_width=True
-    ):
-        st.session_state["module"] = "scam"
-
-
-# ----------------------------------------------------------
-# PLATFORM WORKFLOW
-# ----------------------------------------------------------
-
-st.divider()
-
-st.subheader("How the Platform Works")
-
-step1, step2, step3, step4 = st.columns(4)
-
-with step1:
-    st.markdown("### 01")
-    st.write("**Input**")
-    st.caption("Image • Video • Text")
-
-with step2:
-    st.markdown("### 02")
-    st.write("**AI Analysis**")
-    st.caption("CNN • YOLO • BERT")
-
-with step3:
-    st.markdown("### 03")
-    st.write("**Decision**")
-    st.caption("Prediction + Confidence")
-
-with step4:
-    st.markdown("### 04")
-    st.write("**Action**")
-    st.caption("Result • Warning • Alert")
-
-
-# ----------------------------------------------------------
-# FOOTER
-# ----------------------------------------------------------
-
-st.divider()
-
-st.caption(
-    "Community Safety & Trust AI Platform | "
-    "AI-assisted decision support system"
-)
-
-PROJECT_ROOT = Path(__file__).resolve().parent
-MODEL_PATH = PROJECT_ROOT / "models" / "currency_cnn_best.keras"
-
-
-@st.cache_resource
-def load_currency_model():
-    import tensorflow as tf
-
-    return tf.keras.models.load_model(MODEL_PATH, compile=False)
-
-
-def preprocess_currency_image(uploaded_file):
-    uploaded_file.seek(0)
-    image = Image.open(uploaded_file).convert("RGB")
-    image = image.resize((224, 224), Image.Resampling.BILINEAR)
-    return np.asarray(image, dtype=np.float32)[None, ...] / 255.0
-
-
-def render_currency_detector():
-    st.subheader("Currency Detector")
-    st.write("Upload a currency image for an AI-based Real or Fake prediction.")
-
-    if st.button("Back to Dashboard", key="currency_back"):
-        st.session_state["module"] = None
-        st.rerun()
-
-    uploaded_file = st.file_uploader(
-        "Upload currency image",
-        type=["jpg", "jpeg", "png", "avif", "webp"],
-        key="currency_upload",
-    )
-
-    if uploaded_file is None:
-        st.info("Upload an image to begin analysis.")
-        return
-
-    try:
-        uploaded_file.seek(0)
-        display_image = Image.open(uploaded_file).convert("RGB")
-        st.image(display_image, caption="Uploaded currency image", use_container_width=True)
-        model = load_currency_model()
-        image_array = preprocess_currency_image(uploaded_file)
-        fake_probability = float(model.predict(image_array, verbose=0)[0][0])
-        predicted_label = 1 if fake_probability >= 0.5 else 0
-        confidence = fake_probability if predicted_label == 1 else 1.0 - fake_probability
-
-        if confidence < 0.60:
-            st.warning("UNCLEAR — Please scan the note again.")
-        else:
-            prediction = "FAKE" if predicted_label == 1 else "REAL"
-            st.success(f"Prediction: {prediction}")
-            st.metric("Confidence", f"{confidence * 100:.2f}%")
-
-        st.caption(
-            "This AI result is an image-based prediction and should not be treated "
-            "as a definitive bank-grade counterfeit verification."
-        )
-    except Exception as error:
-        st.error(f"Unable to analyze this image: {error}")
-
-
-if st.session_state.get("module") == "currency":
-    st.divider()
-    render_currency_detector()

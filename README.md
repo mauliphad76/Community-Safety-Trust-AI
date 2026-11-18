@@ -21,27 +21,22 @@ Counterfeit currency can be difficult to identify from visual inspection alone. 
 
 ## Current Implemented Features
 
-- Streamlit dashboard with a professional interface and three AI module cards.
-- Working Fake Currency Detector using a trained TensorFlow/Keras CNN.
-- Upload support for JPG, JPEG, PNG, AVIF, and WEBP images.
-- RGB conversion, 224 x 224 resizing, and pixel normalization to `[0, 1]`.
-- REAL/FAKE prediction with confidence percentage.
-- `UNCLEAR` result when confidence is below 60%.
-- YOLO object detection for uploaded images, with annotated output, object confidence scores, bounding boxes, and per-class counts.
-- English and Hindi Fake News Detection using saved TF-IDF vectorizers and Linear SVMs.
-- Direct dashboard navigation between all three modules.
-- Optional YOLO camera support remains in the code; the current detector page exposes image uploads.
-- An optional experimental alert for the generic COCO `knife` label; it is not a weapon or threat determination.
+- **MongoDB Cloud Atlas Authentication**: Secure Register & Login flow with bcrypt cryptographic salting & hashing, session management, and connection testing.
+- **AI Modules Sidebar**: Unified navigation side-drawer displaying user session info, active modules switcher, and live AI engine metrics.
+- **Executive High-Contrast Light Theme**: Clean, highly readable, zero-blue UI designed for accessibility and high contrast.
+- **Fake Currency Detector**: Trained TensorFlow/Keras CNN (`models/currency_cnn_best.keras`) evaluating Indian banknotes with Single-Side and Dual-Side scans, confidence scores, and `UNCLEAR` safety fallback.
+- **Suspicious Activity & Crowd Screening**: Offline-bundled YOLO model (`models/yolo11n.pt`) with bounding boxes, per-class counts, crowd-count threshold alarms, and optional experimental knife detection alerts.
+- **Fake News Detection**: Trained TF-IDF + Linear SVM models (`models/fake_news/baseline/`) for both English and Hindi text articles with signed decision margin scores.
+- **Sample Inputs Included**: Bundled sample currency images and bilingual news articles under `sample_inputs/` for instant out-of-the-box testing upon cloning.
 
 ## System Workflow
 
-1. Currency images are stored under `data/real/` and `data/fake/`.
-2. `scripts/build_dataset_index.py` creates image metadata and SHA-256 hashes.
-3. `scripts/create_stratified_splits.py` creates reproducible stratified CSV manifests.
-4. `scripts/train_currency_cnn.py` trains the CNN using the training and validation manifests.
-5. `scripts/evaluate_currency_cnn.py` evaluates the saved model on the unseen test manifest.
-6. `app.py` loads the saved currency and YOLO models and provides interactive image analysis through Streamlit.
-7. The fake-news module loads the saved language-specific SVM and vectorizer for English or Hindi text input.
+1. User authenticates via MongoDB Cloud Atlas (Register / Sign In).
+2. The unified sidebar allows switching between AI modules.
+3. Currency notes are analyzed by the saved CNN model (`models/currency_cnn_best.keras`).
+4. Visual activity and crowd counts are analyzed by the bundled YOLOv11 model (`models/yolo11n.pt`).
+5. English and Hindi news texts are classified by the trained TF-IDF + Linear SVM pipelines.
+6. All AI predictions provide decision-support signals with responsible AI disclaimers.
 
 ## AI Modules
 
@@ -167,95 +162,123 @@ The model made 990 correct predictions and 126 incorrect predictions on the test
 
 ## Project Structure
 
-Key application and model files are organized as follows. The local `data/` and `venv/` directories are excluded from Git.
+Key application and model files are organized as follows. All trained models and sample test inputs are bundled in version control. The heavy raw training dataset (`data/`) and local virtual environment (`venv/`) are excluded from Git.
 
 ```text
 Community_Safety_Trust_AI/
-├── app.py
-├── requirements.txt
-├── yolo11n.pt
-├── data/
-│   ├── real/                       # Local currency training/test images
-│   ├── fake/
-│   └── fake_news/                  # Local raw, processed, and split CSVs
-├── dataset_metadata/
-│   ├── train.csv
-│   ├── validation.csv
-│   ├── test.csv
-│   └── fake_news/
-├── models/
-│   ├── currency_cnn_best.keras
-│   └── fake_news/baseline/
-│       ├── english/{linear_svm.joblib, tfidf_vectorizer.joblib}
-│       └── hindi/{linear_svm.joblib, tfidf_vectorizer.joblib}
+├── app.py                             # Main Streamlit application with AI modules & sidebar
+├── requirements.txt                   # Complete dependencies list
+├── .env.example                       # Environment template for MongoDB Atlas Cloud
+├── .gitignore                         # Excludes secrets, caches, and raw datasets
+├── sample_inputs/                     # Ready-to-use demo files for instant testing
+│   ├── currency/                      # Sample real & fake currency banknotes
+│   └── fake_news/                     # Sample English & Hindi news articles
+├── models/                            # Pre-trained and bundled AI models
+│   ├── currency_cnn_best.keras        # Best CNN weights for currency verification (5.1 MB)
+│   ├── yolo11n.pt                     # Bundled YOLOv11 weights for activity/crowd (5.6 MB)
+│   └── fake_news/baseline/            # TF-IDF vectorizers & Linear SVMs (English & Hindi)
 ├── modules/
-│   ├── fake_news_detection.py
-│   └── suspicious_activity.py
-├── results/
-│   ├── currency_*.*
-│   └── fake_news/
-├── scripts/
-│   ├── fake_news/
-│   ├── evaluate_currency_cnn.py
-│   └── train_currency_cnn.py
-├── tests/
-└── venv/
+│   ├── auth.py                        # MongoDB Cloud Atlas Register & Login with bcrypt
+│   ├── fake_news_detection.py         # Fake news inference pipeline
+│   └── suspicious_activity.py         # YOLO object detection & crowd counting engine
+├── dataset_metadata/                  # Manifests and split distributions
+├── results/                           # Evaluation metrics, confusion matrices, and plots
+├── scripts/                           # Training, evaluation, and preprocessing pipelines
+└── tests/                             # Automated test suite (auth, integration, inference)
 ```
 
-The `venv/` directory is a local virtual environment and should not be committed to version control. The `data/` directory is excluded from Git because the image dataset is large.
+---
 
-## Installation
+## 🚀 Setup & Run on Another Laptop
 
-The project includes a `requirements.txt` file and an existing Windows virtual environment. From PowerShell, activate the environment:
+Follow these steps to clone and run this project on any other laptop (Windows, macOS, or Linux).
 
+### Step 1: Clone the Repository
+
+```bash
+git clone https://github.com/mauliphad76/Community-Safety-Trust-AI.git
+cd Community-Safety-Trust-AI
+```
+
+### Step 2: Create and Activate a Python Virtual Environment
+
+**On Windows (PowerShell):**
 ```powershell
+python -m venv venv
 .\venv\Scripts\Activate.ps1
 ```
+*(If script execution is disabled in PowerShell, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` or activate via Command Prompt `.\venv\Scripts\activate.bat`)*
 
-If PowerShell activation is unavailable, use the virtual-environment interpreter directly:
-
-```powershell
-.\venv\Scripts\python.exe -m pip install -r requirements.txt
+**On macOS / Linux:**
+```bash
+python3 -m venv venv
+source venv/bin/activate
 ```
 
-The current application and currency training/evaluation scripts use Python, Streamlit, TensorFlow/Keras, NumPy, Pillow, and Matplotlib.
+### Step 3: Install Required Dependencies
 
-## How to Run
-
-From the project root, run:
-
-```powershell
-.\venv\Scripts\python.exe -m streamlit run app.py
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-The application opens in the browser at the local Streamlit URL shown in the terminal. If the default port is busy, specify another port, for example:
+### Step 4: Configure MongoDB Cloud Atlas (Authentication)
 
-```powershell
-.\venv\Scripts\python.exe -m streamlit run app.py --server.port 8502
-```
+Authentication is powered by **MongoDB Atlas Cloud**. You have two quick options:
 
-Alternatively, when Streamlit is available on your `PATH`, run:
+- **Option A (Via Web UI - Recommended)**: Simply launch the app (Step 5). If MongoDB is not yet configured, the app will show a friendly **Connect MongoDB Atlas Cloud** form where you can paste your connection string directly!
+- **Option B (Via `.env` file)**: Copy `.env.example` to `.env`:
+  ```bash
+  cp .env.example .env
+  ```
+  Edit `.env` and paste your connection string:
+  ```env
+  MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/?retryWrites=true&w=majority
+  MONGODB_DB_NAME=community_safety_trust_ai
+  ```
 
-```powershell
+> *Tip: Ensure your MongoDB Atlas cluster has IP Whitelist set to `0.0.0.0/0` (Allow Access from Anywhere) or includes your laptop's current public IP address.*
+
+### Step 5: Run the Streamlit Application
+
+```bash
 streamlit run app.py
 ```
 
-## Usage
+The app will launch in your default web browser at `http://localhost:8501`.
 
-1. Start the Streamlit application.
-2. Select a module from the dashboard or the top navigation.
-3. For currency, upload a JPG, JPEG, PNG, AVIF, or WEBP note image; review the REAL/FAKE result and confidence/unclear state.
-4. For suspicious activity, upload an image and select **Analyze Image**; review object detections and crowd-count review indicators.
-5. For fake news, select English or Hindi, enter article text, and select **Analyze Article**.
-6. Interpret the fake-news SVM score only as a signed decision margin, not as a probability or confidence percentage.
-7. Verify all AI results with appropriate human or authoritative review.
+---
 
-The denomination folder is not used to determine an uploaded image's prediction. The CNN produces the REAL/FAKE result.
+## 🧪 Testing the AI Modules Out-of-the-Box
 
-## Future Scope
+The repository includes pre-bundled models and sample test inputs under `sample_inputs/`:
 
-- Authentication and additional safety/trust features remain future work.
-- Future work may also include broader validation and model calibration across additional currency image sources.
+1. **Sign Up / Log In**:
+   - Create your account on the portal or log in with existing credentials.
+2. **Fake Currency Detector**:
+   - Open **Currency Detector** from the sidebar.
+   - Upload `sample_inputs/currency/sample_real_note.jpg` or `sample_fake_note.jpg`.
+   - Review the CNN Real/Fake classification and confidence gauge.
+3. **Suspicious Activity Detection**:
+   - Open **Suspicious Activity** from the sidebar.
+   - Upload any image containing people or objects.
+   - Select **Analyze Image** to view YOLO bounding boxes, class counts, and crowding alerts.
+4. **Fake News Detection**:
+   - Open **Fake News** from the sidebar.
+   - Copy sample text from `sample_inputs/fake_news/sample_english_news.txt` or `sample_hindi_news.txt`.
+   - Select **Analyze Article** to inspect the Linear SVM decision score.
+
+---
+
+## 🔬 Running Automated Tests
+
+To verify that all modules, MongoDB authentication, and inference pipelines are working properly on your machine:
+
+```bash
+python -m unittest discover -s tests
+```
+
+---
 
 ## Important Disclaimer
 
